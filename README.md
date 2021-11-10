@@ -1,4 +1,4 @@
-# KNUNavigator
+# KNUmap
 KNU 길찾기 프로그램
 
 
