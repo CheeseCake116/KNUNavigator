@@ -2,13 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fantastic4.knumap">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KNUmap">
+        android:theme="@style/Theme.KNUmap"
+        android:usesCleartextTraffic="true">
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="cf65ae2cda3d56d67fdda304480a46f8"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

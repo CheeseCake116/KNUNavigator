@@ -7,15 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.ViewGroup
+import net.daum.mf.map.api.MapView
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class MainActivity : AppCompatActivity() {
-    /*override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getHashKey()
+        var mapView = MapView(this)
+        var mapViewContainer = findViewById<ViewGroup>(R.id.map_view)
+        mapViewContainer.addView(mapView)
+
+        //getHashKey()
     }
 
     fun getHashKey(){
@@ -35,5 +41,5 @@ class MainActivity : AppCompatActivity() {
                 Log.e("KEY_HASH", "Unable to get MessageDigest. signature = " + signature, e)
             }
         }
-    }*/ // 해쉬 키 얻는 코드
+    }
 }

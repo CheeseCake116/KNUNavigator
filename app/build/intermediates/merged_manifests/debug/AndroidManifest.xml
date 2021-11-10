@@ -8,6 +8,10 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="31" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -17,7 +21,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.KNUmap" >
+        android:theme="@style/Theme.KNUmap"
+        android:usesCleartextTraffic="true" >
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="cf65ae2cda3d56d67fdda304480a46f8" />
+
         <activity
             android:name="com.fantastic4.knumap.MainActivity"
             android:exported="true" >

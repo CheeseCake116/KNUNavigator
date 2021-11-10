@@ -6,45 +6,64 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml
+8-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="31" />
-9-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml
+9-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml
 10
-11    <application
-11-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:5:5-21:19
-12        android:allowBackup="true"
-12-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:6:9-35
-13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.7.0] /Users/hymi54/.gradle/caches/transforms-3/3b16d604ecf1a3ba90b57bf493908e8e/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
-14        android:debuggable="true"
-15        android:icon="@mipmap/ic_launcher"
-15-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:7:9-43
-16        android:label="@string/app_name"
-16-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:8:9-41
-17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:9:9-54
-18        android:supportsRtl="true"
-18-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:10:9-35
-19        android:testOnly="true"
-20        android:theme="@style/Theme.KNUmap" >
-20-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:11:9-44
-21        <activity
-21-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:12:9-20:20
-22            android:name="com.fantastic4.knumap.MainActivity"
-22-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:13:13-41
-23            android:exported="true" >
-23-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:14:13-36
-24            <intent-filter>
-24-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:15:13-19:29
-25                <action android:name="android.intent.action.MAIN" />
-25-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:16:17-69
-25-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:16:25-66
-26
-27                <category android:name="android.intent.category.LAUNCHER" />
-27-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:18:17-77
-27-->/Users/hymi54/Documents/GitHub/KNUNavigator/app/src/main/AndroidManifest.xml:18:27-74
-28            </intent-filter>
-29        </activity>
-30    </application>
-31
-32</manifest>
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:5:5-66
+11-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:6:5-78
+12-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:7:5-80
+13-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:7:22-78
+14
+15    <application
+15-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:9:5-29:19
+16        android:allowBackup="true"
+16-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:10:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.7.0] C:\Users\minsu\.gradle\caches\transforms-3\3b16d604ecf1a3ba90b57bf493908e8e\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:icon="@mipmap/ic_launcher"
+19-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:11:9-43
+20        android:label="@string/app_name"
+20-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:12:9-41
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:13:9-54
+22        android:supportsRtl="true"
+22-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:14:9-35
+23        android:testOnly="true"
+24        android:theme="@style/Theme.KNUmap"
+24-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:15:9-44
+25        android:usesCleartextTraffic="true" >
+25-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:16:9-44
+26        <meta-data
+26-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:18:9-106
+27            android:name="com.kakao.sdk.AppKey"
+27-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:18:20-55
+28            android:value="cf65ae2cda3d56d67fdda304480a46f8" />
+28-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:18:56-104
+29
+30        <activity
+30-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:20:9-28:20
+31            android:name="com.fantastic4.knumap.MainActivity"
+31-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:21:13-41
+32            android:exported="true" >
+32-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:22:13-36
+33            <intent-filter>
+33-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:23:13-27:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:24:17-69
+34-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:24:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:26:17-77
+36-->C:\Users\minsu\Desktop\MoApp\KNUmap\app\src\main\AndroidManifest.xml:26:27-74
+37            </intent-filter>
+38        </activity>
+39    </application>
+40
+41</manifest>
