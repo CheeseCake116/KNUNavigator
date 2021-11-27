@@ -13,7 +13,9 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import com.skt.Tmap.TMapView
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skt.Tmap.TMapPoint
 import com.skt.Tmap.TMapData
 
@@ -57,5 +59,16 @@ class MainActivity : AppCompatActivity() {
                     item = itemList.get(i)
                 }
             })*/
+
+        // 플로팅 버튼
+        var fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+        var fab_close = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
+
+        var fab = findViewById<FloatingActionButton>(R.id.fab_btnMain)
+        var fab1 = findViewById<FloatingActionButton>(R.id.fab_btn1)
+        var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
+        var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
+
+        var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3)
     }
 }

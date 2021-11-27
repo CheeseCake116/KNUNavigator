@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,5 +13,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
     </LinearLayout>
-</android.widget.LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/fab_btnMain"
+        app:layout_constraintBottom_toBottomOf="@id/fab_btnMain"
+        app:layout_constraintStart_toStartOf="@id/fab_btnMain"
+        app:layout_constraintEnd_toEndOf="@id/fab_btnMain"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/fab_btnMain"
+        app:layout_constraintBottom_toBottomOf="@id/fab_btnMain"
+        app:layout_constraintStart_toStartOf="@id/fab_btnMain"
+        app:layout_constraintEnd_toEndOf="@id/fab_btnMain"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/fab_btnMain"
+        app:layout_constraintBottom_toBottomOf="@id/fab_btnMain"
+        app:layout_constraintStart_toStartOf="@id/fab_btnMain"
+        app:layout_constraintEnd_toEndOf="@id/fab_btnMain"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btnMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_gravity="end|bottom"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
