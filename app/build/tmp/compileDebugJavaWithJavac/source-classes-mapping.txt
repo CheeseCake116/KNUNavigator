@@ -1,2 +1,0 @@
-com/fantastic4/knumap/BuildConfig.java
- com.fantastic4.knumap.BuildConfig
