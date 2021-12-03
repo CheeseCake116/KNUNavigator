@@ -20,12 +20,10 @@ import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skt.Tmap.*
-
 import java.lang.Exception
-import com.skt.Tmap.TMapData.FindPathDataListenerCallback
-
-import com.skt.Tmap.TMapData.TMapPathType
-import com.skt.Tmap.poi_item.TMapPOIItem
+import android.app.Activity
+import android.location.LocationListener
+import android.widget.Button
 
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
@@ -33,15 +31,14 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     lateinit var tMapGpsManager : TMapGpsManager
     lateinit var tmapGps : TMapGpsManager
     lateinit var tmapview : TMapView
+    var myLong : Double = 0.0 // 현재 위치 _ 경도
+    var myLat : Double = 0.0 // 현재 위치 _ 위도
     val mApiKey : String = "l7xx6a347111bc9842009151e620e7301037"
+    companion object{
+        var isLoc : Boolean = true
+    }
 
     lateinit var tMapPolyLine: TMapPolyLine
-
-    override fun onLocationChange(location: Location?) {
-        if(m_bTrackingMode) {
-            tmapview.setLocationPoint(location!!.longitude, location.latitude)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +62,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // TMap Key 인증
         tmapview.setSKTMapApiKey(mApiKey)
 
-        // 현재 보는 방향
-        tmapview.setCompassMode(true)
-
         // 현 위치 아이콘 표시
         tmapview.setIconVisibility(true)
 
@@ -88,18 +82,27 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tmapview.setTrackingMode(true)
         tmapview.setSightVisible(true)
 
-        // 경로 설정
-        val tMapPointStart = TMapPoint(35.88688, 128.60850) // 공대 9호관(출발지)
-        val tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
+        // 현재 보는 방향 표시
+        tmapview.setCompassMode(true)
 
-        // 경로 검색 (보행자)
-        TMapData().findPathDataWithType(
-            TMapData.TMapPathType.PEDESTRIAN_PATH, tMapPointStart, tMapPointEnd,
-            TMapData.FindPathDataListenerCallback { polyLine ->
-                polyLine.lineColor = Color.BLUE
-                polyLine.lineWidth = 5f
-                tmapview.addTMapPath(polyLine)
-            })
+        // 현위치 보기 온오프
+        var btnLoc : View = findViewById(R.id.btnLoc)
+        btnLoc.setOnClickListener{ view ->
+            if (isLoc){ // 현위치 보기 중이면
+                tmapview.setTrackingMode(false)
+                tmapview.setCompassMode(false)
+                tmapview.setSightVisible(false)
+                tmapview.invalidate()
+                isLoc = false
+            }
+            else{ // 현위치 보기 중이 아니면
+                tmapview.setTrackingMode(true)
+                tmapview.setCompassMode(true)
+                tmapview.setSightVisible(true)
+                tmapview.invalidate()
+                isLoc = true
+            }
+        }
 
         // POI 검색
         /*TMapData().findAllPOI(strData,
@@ -120,5 +123,27 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
 
         var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3)
+    }
+
+    override fun onLocationChange(location: Location?) {
+        if(m_bTrackingMode) {
+            myLong = location!!.longitude
+            myLat = location.latitude
+            tmapview.setLocationPoint(myLong, myLat)
+
+            // 경로 설정
+            val tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
+            val tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
+
+
+            // 경로 검색 (보행자)
+            TMapData().findPathDataWithType(
+                TMapData.TMapPathType.PEDESTRIAN_PATH, tMapPointStart, tMapPointEnd,
+                TMapData.FindPathDataListenerCallback { polyLine ->
+                    polyLine.lineColor = Color.BLUE
+                    polyLine.lineWidth = 5f
+                    tmapview.addTMapPath(polyLine)
+                })
+        }
     }
 }

@@ -41,8 +41,7 @@ dependencies {
     implementation files('libs\\com.skt.Tmap_1.69.jar')
 
     implementation 'com.google.android.material:material:1.1.0-beta01' // 플로팅 버튼
-    implementation 'org.jsoup:jsoup:1.13.1'
-    implementation files('src\\main\\libs\\com.skt.Tmap_1.69.jar') // 크롤링 모듈
+    implementation 'org.jsoup:jsoup:1.13.1' // 크롤링 모듈
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
