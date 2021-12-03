@@ -7,7 +7,14 @@ import android.view.Window
 import android.widget.Button
 import androidx.core.content.ContextCompat.startActivity
 
-
+class TitleActivity : AppCompatActivity(){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+}
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
