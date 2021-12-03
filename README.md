@@ -11,6 +11,7 @@ Androidmanifest.xml : xml 파일 분할 위해 추가한 부분 있음.
 
 형식 : activity android:name=".LoginActivity"
 
+# 일정
 실행 안 되거나 오류 나는 부분은 일단 다 뺐고, 9일 까지인 점 고려하여 일정은 다음과 같음.
 
 1. 디자인 종합 파일 + 사용 설명서 5일 5시 까지는 업로드 할 수 있도록 함.
