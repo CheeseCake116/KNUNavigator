@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+
+    android:background="@color/C1Red"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/login">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="160dp"
+        android:layout_gravity="center"
+
+        android:src="@drawable/ic_logo"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="-25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="1dp"
+            android:text="KNU MAP"
+            android:textSize="36dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font"
+            android:gravity="top"
+            />
+        <ImageView
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+
+            android:src="@drawable/ic_plane"
+            />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/inputEmail"
+
+        android:layout_marginTop="50dp"
+        android:layout_height="40dp"
+        android:layout_width="350dp"
+        android:background="@drawable/input_text"
+        android:layout_gravity="center"
+
+        android:paddingLeft="7dp"
+        android:hint = "이메일"
+         />
+    <EditText
+        android:id="@+id/inputPassword"
+        android:layout_height="40dp"
+        android:layout_width="350dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/input_text"
+        android:layout_gravity="center"
+
+        android:paddingLeft="7dp"
+        android:hint = "비밀번호"
+        />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_marginTop="-3dp"
+        android:backgroundTint="@color/C4Gray"
+        android:layout_gravity="center"
+
+        android:text="로그인"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        >
+
+
+    </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="230dp"
+        android:layout_gravity="center"
+        android:text="©Copyright by KNU all right reserved"
+        android:textColor="#ffffff"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
