@@ -9,4 +9,4 @@ res : svg, png 등 이미지와 값 xml
 
 Androidmanifest.xml : xml 파일 분할 위해 추가한 부분 있음.
 
-형식 : <activity android:name=".LoginActivity"/>
+형식 : activity android:name=".LoginActivity"
