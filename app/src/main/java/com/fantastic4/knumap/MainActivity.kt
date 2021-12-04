@@ -110,11 +110,12 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             }
         }
 
-        /*// POI 검색
-        TMapData().findAllPOI(strData,
-            TMapData.FindAllPOIListenerCallback { itemList ->
+        /*var strData = ""
+        // POI 검색
+        TMapData().findTitlePOI(strData,
+            TMapData.FindTitlePOIListenerCallback { itemList ->
                 for(i in 0..itemList.size){
-                    val item : TMapPOIItem
+                    var item : TMapPOIItem
                     item = itemList.get(i)
                 }
             })*/
@@ -143,7 +144,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             // 목적지 텍스트 가져오기
             var temp_text_string: String
             temp_text_string = getDestination()
-//            Toast.makeText(this, temp_text_string, Toast.LENGTH_SHORT).show() // 임시로 토스트 메시지로 확인
+            Toast.makeText(this, temp_text_string, Toast.LENGTH_SHORT).show() // 임시로 토스트 메시지로 확인
 
             // 경로 설정
             var tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
