@@ -27,6 +27,7 @@ import android.graphics.BitmapFactory
 import android.location.LocationListener
 import android.widget.Button
 import androidx.core.graphics.scale
+import com.skt.Tmap.poi_item.TMapPOIItem
 
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 권한 설정정
+        // 권한 설정정보
        if(ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 tmapview.setCompassMode(false)
                 tmapview.setSightVisible(false)
                 tmapview.invalidate()
+                //btnLoc.setBackgroundResource(R.drawable.myloc_on)
                 isLoc = false
             }
             else{ // 현위치 보기 중이 아니면
@@ -103,12 +105,13 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 tmapview.setCompassMode(true)
                 tmapview.setSightVisible(true)
                 tmapview.invalidate()
+                //btnLoc.setBackgroundResource(R.drawable.myloc_off)
                 isLoc = true
             }
         }
 
-        // POI 검색
-        /*TMapData().findAllPOI(strData,
+        /*// POI 검색
+        TMapData().findAllPOI(strData,
             TMapData.FindAllPOIListenerCallback { itemList ->
                 for(i in 0..itemList.size){
                     val item : TMapPOIItem
@@ -138,8 +141,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             tmapview.setLocationPoint(myLong, myLat)
 
             // 경로 설정
-            val tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
-            val tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
+            var tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
+            var tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
 
 
             // 경로 검색 (보행자)
