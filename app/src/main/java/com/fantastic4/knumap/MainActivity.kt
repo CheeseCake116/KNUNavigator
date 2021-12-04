@@ -40,6 +40,15 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     val mApiKey : String = "l7xx6a347111bc9842009151e620e7301037"
     companion object{
         var isLoc : Boolean = true
+        val searchMap = mapOf<String,List<Double>>("본관(100)" to listOf<Double>(35.890512, 128.612028), "대강당(101)" to listOf<Double>(35.892801, 128.610700),
+            "글로벌플라자(103)" to listOf<Double>(35.891929, 128.611240), "인문대학(104)" to listOf<Double>(35.891194, 128.610692), "대학원동(107)" to listOf<Double>(35.889717, 128.610220),
+            "정보전산원(110)" to listOf<Double>(35.891446, 128.613594), "중앙도서관(111)" to listOf<Double>(35.891663, 128.612049), "향토관(113)" to listOf<Double>(35.890720, 128.615168),
+            "약학대학(118)" to listOf<Double>(35.892659, 128.612352), "예술대학(120)" to listOf<Double>(35.893545, 128.611348), "농생대1호관(201)" to listOf<Double>(35.891280, 128.609536),
+            "생명공학관(207)" to listOf<Double>(35.889795, 128.609061), "자연과학대학(209)" to listOf<Double>(35.890271, 128.606557), "생물관(217)" to listOf<Double>(35.886866, 128.606068),
+            "사범대학(301)" to listOf<Double>(35.890419, 128.614199), "경상대학(308)" to listOf<Double>(35.889098, 128.615822), "공대9호관(406)" to listOf<Double>(35.886915, 128.608497),
+            "IT대학2호관(416)" to listOf<Double>(35.886915, 128.608497), "IT대학융복합공학관(415)" to listOf<Double>(35.888065, 128.611215), "수의과대학(420)" to listOf<Double>(35.886794, 128.613232),
+            "정보센터식당(116)" to listOf<Double>(35.892296, 128.613262), "복지관식당(305)" to listOf<Double>(35.889052, 128.614423), "첨성관식당(114)" to listOf<Double>(35.891443, 128.614908),
+            "공식당(교직원)(408)" to listOf<Double>(35.888322, 128.609688), "공식당(학생)(408)" to listOf<Double>(35.888322, 128.609688),)
     }
 
     lateinit var tMapPolyLine: TMapPolyLine
@@ -112,16 +121,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 isLoc = true
             }
         }
-
-        /*var strData = ""
-        // POI 검색
-        TMapData().findTitlePOI(strData,
-            TMapData.FindTitlePOIListenerCallback { itemList ->
-                for(i in 0..itemList.size){
-                    var item : TMapPOIItem
-                    item = itemList.get(i)
-                }
-            })*/
 
         // 플로팅 버튼
         var fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
