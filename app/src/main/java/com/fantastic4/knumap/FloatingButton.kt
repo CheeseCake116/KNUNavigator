@@ -3,13 +3,16 @@ package com.fantastic4.knumap
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Context
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.Animation
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+
 class FloatingButton {
+
     var fab_open : Animation
     var fab_close : Animation
     var isFabOpen = false
@@ -64,6 +67,8 @@ class FloatingButton {
 
     // 플로팅 액션 버튼 클릭시 애니메이션 효과
     fun toggleFab() {
+        var dp = mainContext.resources.getDimension(R.dimen.size_1dp)
+
         if (isFabOpen) {
             // 플로팅 액션 버튼 닫기
             // 애니메이션 추가
@@ -78,11 +83,11 @@ class FloatingButton {
             //fab.setImageResource(android.R.drawable.ic_baseline_add_24)
         } else {
             // 플로팅 액션 버튼 열기
-            val f1_animation = ObjectAnimator.ofFloat(fab1, "translationY", -170f)
+            val f1_animation = ObjectAnimator.ofFloat(fab1, "translationY", -65 * dp)
             f1_animation.start()
-            val f2_animation = ObjectAnimator.ofFloat(fab2, "translationY", -340f)
+            val f2_animation = ObjectAnimator.ofFloat(fab2, "translationY", -130 * dp)
             f2_animation.start()
-            val f3_animation = ObjectAnimator.ofFloat(fab3, "translationY", -510f)
+            val f3_animation = ObjectAnimator.ofFloat(fab3, "translationY", -195 * dp)
             f3_animation.start()
 
             // 메인 플로팅 이미지 변경
