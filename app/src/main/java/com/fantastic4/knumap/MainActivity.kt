@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         setContentView(R.layout.activity_main)
 
         // 권한 설정정보
-       if(ActivityCompat.checkSelfPermission(
+        if(ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
