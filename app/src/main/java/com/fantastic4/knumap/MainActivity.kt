@@ -167,7 +167,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         item_point.add(0, TMapPoint(35.892376545752455, 128.6131707177347)) // 정보센터식당 좌표
         item_point.add(1, TMapPoint(35.88916342021079, 128.6144599690982))  // 복지관 좌표
         item_point.add(2, TMapPoint(35.8915902231366, 128.61487701142792))  // 첨성관 좌표
-        item_point.add(3, TMapPoint(35.88828732332779, 128.60960810892362)) // 공식당 좌표(세븐일레븐)
+        item_point.add(3, TMapPoint(35.88828732332779, 128.60960810892362)) // 공식당(교직원) 좌표
+        item_point.add(4, TMapPoint(35.888268723784684, 128.6098106243137)) // 공식당(학생) 좌표
 
         // 마커 아이콘 "Bitmap"으로 불러오기
         var bitmap: Bitmap
@@ -176,7 +177,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         markerItem = ArrayList()
         var item: TMapMarkerItem
-        for(idx: Int in 0..3) {
+        for(idx: Int in 0..4) {
             item = TMapMarkerItem()
             item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
             item.tMapPoint = item_point[idx]  // 마커 좌표 설정
