@@ -1,7 +1,12 @@
 package com.fantastic4.knumap
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
+import android.content.Context
+import android.view.View
 import android.view.animation.Animation
+import android.widget.EditText
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FloatingButton {
@@ -12,8 +17,12 @@ class FloatingButton {
     var fab1 : FloatingActionButton
     var fab2 : FloatingActionButton
     var fab3 : FloatingActionButton
+    var mainContext : Context
+    lateinit var dialogView : View
+    lateinit var dlgEdtDest : EditText
+    var destText : String = ""
 
-    constructor(_fab_open: Animation, _fab_close: Animation, _fab: FloatingActionButton, _fab1: FloatingActionButton, _fab2: FloatingActionButton, _fab3: FloatingActionButton) {
+    constructor(_fab_open: Animation, _fab_close: Animation, _fab: FloatingActionButton, _fab1: FloatingActionButton, _fab2: FloatingActionButton, _fab3: FloatingActionButton, mContext: Context) {
         fab_open = _fab_open
         fab_close = _fab_close
 
@@ -25,6 +34,12 @@ class FloatingButton {
         fab.setOnClickListener {
             anim()
             toggleFab()
+        }
+
+        mainContext = mContext
+
+        fab3.setOnClickListener {
+            showDialog()
         }
     }
 
@@ -77,4 +92,18 @@ class FloatingButton {
         // 플로팅 버튼 상태 변경
         isFabOpen = !isFabOpen
     }
+
+    fun showDialog() {
+        dialogView = View.inflate(mainContext, R.layout.dialog_search, null)
+        var dlg = AlertDialog.Builder(mainContext)
+        dlg.setView(dialogView)
+        dlg.setPositiveButton("확인") { dialog, which ->
+            dlgEdtDest = dialogView.findViewById<EditText>(R.id.edtDest)
+            destText = dlgEdtDest.text.toString()
+            Toast.makeText(mainContext, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+        }
+        dlg.setNegativeButton("취소", null)
+        dlg.show()
+    }
+
 }

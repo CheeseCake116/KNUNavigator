@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
         var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
 
-        var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3)
+        var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
     }
 
     override fun onLocationChange(location: Location?) {
