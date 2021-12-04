@@ -44,6 +44,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     lateinit var tMapPolyLine: TMapPolyLine
 
+    // Destination Text
+    var destinationText: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -190,5 +193,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
             tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
         }
+    }
+
+    fun setDestinationText(fb: FloatingButton) {
+        destinationText = fb.destText
+        Log.e("destinationText", destinationText)
     }
 }

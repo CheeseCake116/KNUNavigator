@@ -105,6 +105,8 @@ class FloatingButton {
             dlgEdtDest = dialogView.findViewById<EditText>(R.id.edtDest)
             destText = dlgEdtDest.text.toString()
             Toast.makeText(mainContext, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+
+            MainActivity().setDestinationText(this)
         }
         dlg.setNegativeButton("취소", null)
         dlg.show()
