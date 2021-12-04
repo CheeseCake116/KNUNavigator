@@ -22,8 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skt.Tmap.*
 import java.lang.Exception
 import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.LocationListener
 import android.widget.Button
+import androidx.core.graphics.scale
 
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
@@ -123,6 +126,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
 
         var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
+
+        // 마커 설정
+        setMarker()
     }
 
     override fun onLocationChange(location: Location?) {
@@ -144,6 +150,40 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                     polyLine.lineWidth = 5f
                     tmapview.addTMapPath(polyLine)
                 })
+        }
+    }
+
+    fun setMarker() {
+        // 1. 정보센터식당, 2. 복지관, 3. 첨성관, 4. 공식당(교직원), 5. 공식당(학생) : 항상 마커로 표시
+        // 정보센터식당 : 35.892376545752455, 128.6131707177347
+        // 복지관 : 35.88916342021079, 128.6144599690982
+        // 첨성관 : 35.8915902231366, 128.61487701142792
+        // 공식당(교직원), 공식당(학생) : 35.88828732332779, 128.60960810892362
+
+        var markerItem: ArrayList<TMapMarkerItem>    // MarkerItem 선언
+        var item_point: ArrayList<TMapPoint>    // 식당 Point(좌표) 선언
+
+        item_point = ArrayList()
+        item_point.add(0, TMapPoint(35.892376545752455, 128.6131707177347)) // 정보센터식당 좌표
+        item_point.add(1, TMapPoint(35.88916342021079, 128.6144599690982))  // 복지관 좌표
+        item_point.add(2, TMapPoint(35.8915902231366, 128.61487701142792))  // 첨성관 좌표
+        item_point.add(3, TMapPoint(35.88828732332779, 128.60960810892362)) // 공식당 좌표(세븐일레븐)
+
+        // 마커 아이콘 "Bitmap"으로 불러오기
+        var bitmap: Bitmap
+        bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.marker_map_icon)
+        bitmap.scale(150, 150, true)
+
+        markerItem = ArrayList()
+        var item: TMapMarkerItem
+        for(idx: Int in 0..3) {
+            item = TMapMarkerItem()
+            item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
+            item.tMapPoint = item_point[idx]  // 마커 좌표 설정
+
+            markerItem.add(idx, item)   // markerItem에 item 추가
+
+            tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
         }
     }
 }
