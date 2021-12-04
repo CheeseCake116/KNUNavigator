@@ -141,11 +141,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             myLat = location.latitude
             tmapview.setLocationPoint(myLong, myLat)
 
-            // 목적지 텍스트 가져오기
-            var temp_text_string: String
-            temp_text_string = getDestination()
-            Toast.makeText(this, temp_text_string, Toast.LENGTH_SHORT).show() // 임시로 토스트 메시지로 확인
-
             // 경로 설정
             var tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
             var tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
@@ -195,21 +190,5 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
             tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
         }
-    }
-
-    fun getDestination(): String {
-        // 목적지 다이얼로그 가져오기
-        var destinationDlg: View
-        destinationDlg = View.inflate(this, R.layout.dialog_search, null)
-
-        // 목적지 다이얼로그 EditText 가져오기
-        var destinationText: EditText
-        destinationText = destinationDlg.findViewById(R.id.edtDest)
-
-        // 목적지 텍스트 가져오기
-        var result: String
-        result = destinationText.text.toString()
-
-        return result
     }
 }
