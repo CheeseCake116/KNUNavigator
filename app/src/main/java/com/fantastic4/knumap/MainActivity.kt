@@ -32,7 +32,6 @@ import com.skt.Tmap.poi_item.TMapPOIItem
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
     var m_bTrackingMode : Boolean = true
-    lateinit var tMapGpsManager : TMapGpsManager
     lateinit var tmapGps : TMapGpsManager
     lateinit var tmapview : TMapView
     var myLong : Double = 0.0 // 현재 위치 _ 경도
