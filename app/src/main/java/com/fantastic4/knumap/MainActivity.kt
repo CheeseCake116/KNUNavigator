@@ -32,7 +32,6 @@ import com.skt.Tmap.poi_item.TMapPOIItem
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
     var m_bTrackingMode : Boolean = true
-    lateinit var tMapGpsManager : TMapGpsManager
     lateinit var tmapGps : TMapGpsManager
     lateinit var tmapview : TMapView
     var myLong : Double = 0.0 // 현재 위치 _ 경도
@@ -99,7 +98,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tmapview.setSightVisible(true)
 
         // 현재 보는 방향 표시
-        tmapview.setCompassMode(true)
+        tmapview.setCompassMode(false)
 
         // 현위치 보기 온오프
         var btnLoc : View = findViewById(R.id.btnLoc)
