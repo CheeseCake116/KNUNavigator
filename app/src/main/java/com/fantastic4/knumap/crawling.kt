@@ -11,8 +11,8 @@ class Cafeteria {
     var menu_tables : Elements
     /*
     1) 객체 호출 방법
-    v터ar cafe = Cafeteria(식당번호)
-    식당 번호는 1 : 정보센식당, 2 : 복지관, 3 : 첨성관, 4 : 공식당(교직원), 5 : 공식당(학생)
+    var cafe = Cafeteria(식당번호)
+    식당 번호는 1 : 정보센터식당, 2 : 복지관, 3 : 첨성관, 4 : 공식당(교직원), 5 : 공식당(학생)
 
     2) 객체로부터 크롤링 값 받는 방법
     var res = cafe.readMenu(날짜, 식단 번호)
