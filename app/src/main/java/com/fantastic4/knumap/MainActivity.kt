@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tmapview.setSightVisible(true)
 
         // 현재 보는 방향 표시
-        tmapview.setCompassMode(true)
+        tmapview.setCompassMode(false)
 
         // 현위치 보기 온오프
         var btnLoc : View = findViewById(R.id.btnLoc)
