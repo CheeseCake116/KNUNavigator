@@ -5,6 +5,13 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
+// 크롤링 테스트할때 쓰는 메인 함수
+/*fun main() {
+    var cafe1 = Cafeteria(1)
+    var res = cafe1.readMenu(1, 2)
+    print (res)
+}*/
+
 class Cafeteria {
     lateinit var doc : Document
     var big_table : Element
@@ -25,7 +32,7 @@ class Cafeteria {
     var res = cafe1.readMenu(1, 2) // 월요일 점심 메뉴를 가져와줘
 
     반환값 : Result 클래스 (밑에 정의되어있음)
-    필드는 error(Boolean), menu(String), price(String)
+    필드는 error(Boolean), menu(String), menuSize(Int)
     error가 false인지 체크 후 menu와 price를 출력하면 됨
      */
 
@@ -52,6 +59,11 @@ class Cafeteria {
             menu = menuString
             menuSize = menuString.size
         }
+
+        override fun toString(): String {
+            var str = menu.joinToString()
+            return str
+        }
     }
 
 
@@ -62,6 +74,10 @@ class Cafeteria {
         }
         if (meal < 1 || meal > 3) {
             var res = Result(true, arrayOf("식단 번호 오류"))
+            return res
+        }
+        if (menu_tables.size < 2) {
+            var res = Result(true, arrayOf("식단 정보 없음"))
             return res
         }
 
