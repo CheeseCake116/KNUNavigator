@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/rest_box1">
+
+        //상단
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            //식당 이름
+
+            <TextView android:id="@+id/restTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:text="복지관 식당"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
+
+            //시간
+
+            <TextView
+                android:id="@+id/restTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:text="11:00 ~ 13:00"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            //지도 가는 버튼
+
+            <ImageButton
+                android:id="@+id/restGoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@drawable/gobtn_box"
+                android:src="@drawable/ic_gobtn" />
+
+
+        </LinearLayout>
+        //하단
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:paddingHorizontal="15dp"
+            android:background="@drawable/rest_box2">
+
+            //식단
+
+            <TextView
+                android:id="@+id/restMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="-  김치찌개\n-  볶음밥"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

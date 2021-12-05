@@ -21,7 +21,7 @@ class TitleActivity : AppCompatActivity(){
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, MainAct::class.java)
+        val intent = Intent(this, MainAct2::class.java)
         startActivity(intent)
         finish()
 
@@ -55,6 +55,7 @@ class MainAct : AppCompatActivity() {
         setContentView(R.layout.main)
 
         ContentList.add(ListViewItem("2A", "자바 프로그래밍", "IT5", "10:30 - 12:00"))
+        ContentList.add(ListViewItem("3A", "자료 구조", "IT4", "1:30 - 3:00"))
         val classAdapter = ListViewAdapter(this, ContentList)
 
         val classlist = findViewById<ListView>(R.id.classlist)
@@ -66,17 +67,41 @@ class MainAct : AppCompatActivity() {
 
 //메인화면 2, 식단표
 class MainAct2 : AppCompatActivity() {
+
+    var ContentList = arrayListOf<Rest_LVItem>(
+            Rest_LVItem("복지관 식당","11:00 - 13:00", "복지관", "복지관 치즈 돈가스")
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main2)
+        ContentList.add(Rest_LVItem("첨성관 식당", "11:00 - 13:00", "첨성관", "-  김치찌개\n-  흰 쌀밥\n-  김치\n-  시금치 무침\n-  불고기"))
+        val classAdapter = Rest_LVAdapter(this, ContentList)
 
-        var btnLogin = findViewById(R.id.testbtn2) as Button
-        btnLogin.setOnClickListener ({
-            val intent = Intent(this, MainAct::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0);
-            finish()
-        })
+        val restList = findViewById<ListView>(R.id.restList)
+        restList.adapter = classAdapter
+
+
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
