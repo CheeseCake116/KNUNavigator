@@ -101,14 +101,14 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tmapview.setCompassMode(false)
 
         // 현위치 보기 온오프
-        var btnLoc : View = findViewById(R.id.btnLoc)
+        var btnLoc : ImageButton = findViewById(R.id.btnLoc)
         btnLoc.setOnClickListener{ view ->
             if (isLoc){ // 현위치 보기 중이면
                 tmapview.setTrackingMode(false)
                 tmapview.setCompassMode(false)
                 tmapview.setSightVisible(false)
                 tmapview.invalidate()
-                //btnLoc.setBackgroundResource(R.drawable.myloc_on)
+                btnLoc.setImageResource(R.drawable.myloc_on)
                 isLoc = false
             }
             else{ // 현위치 보기 중이 아니면
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 tmapview.setCompassMode(true)
                 tmapview.setSightVisible(true)
                 tmapview.invalidate()
-                //btnLoc.setBackgroundResource(R.drawable.myloc_off)
+                btnLoc.setImageResource(R.drawable.myloc_off)
                 isLoc = true
             }
         }

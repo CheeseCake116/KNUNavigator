@@ -18,11 +18,12 @@
 
     <ImageButton
         android:id="@+id/btnLoc"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_gravity="start|bottom"
-        android:layout_margin="24dp"
+        android:layout_margin="20dp"
         android:backgroundTint="@color/white"
+        android:src="@drawable/myloc_off"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
