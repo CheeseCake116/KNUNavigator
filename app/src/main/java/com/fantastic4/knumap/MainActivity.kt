@@ -178,18 +178,34 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // 마커 아이콘 "Bitmap"으로 불러오기
         var bitmap: Bitmap
         bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.marker_map_icon)
-        bitmap.scale(150, 150, true)
+        bitmap = bitmap.scale(100, 100, false)
 
         markerItem = ArrayList()
         var item: TMapMarkerItem
         for(idx: Int in 0..4) {
             item = TMapMarkerItem()
+            item.icon = bitmap
             item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
             item.tMapPoint = item_point[idx]  // 마커 좌표 설정
+            setBalloonView(item, idx)   // 풍선뷰 설정
 
             markerItem.add(idx, item)   // markerItem에 item 추가
 
             tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
+        }
+    }
+
+    fun setBalloonView(item: TMapMarkerItem, idx: Int) {
+        // 풍선뷰 사용 여부 설정
+        item.canShowCallout = true
+
+        // 풍선뷰에 표시될 주된 메시지 내용 설정
+       when(idx) {
+            0 -> item.calloutTitle = "정보센터식당"
+            1 -> item.calloutTitle = "복지관"
+            2 -> item.calloutTitle = "첨성관"
+            3 -> item.calloutTitle = "공식당(교직원)"
+            4 -> item.calloutTitle = "공식당(학생)"
         }
     }
 
