@@ -28,6 +28,9 @@ import android.location.LocationListener
 import android.widget.*
 import androidx.core.graphics.scale
 import com.skt.Tmap.poi_item.TMapPOIItem
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
@@ -54,6 +57,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     // Destination Text
     var destinationText: String = ""
+    // 오늘 요일
+    var dayOfWeekString = ""
+    var dayOfWeek: Int = 0
+    // 조식, 중식, 석식
+    var mealMenu: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +142,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         // 마커 설정
         setMarker()
+
+        // 각 식당 메뉴 설정
+        //setRestaurantMenu(1)
     }
 
     override fun onLocationChange(location: Location?) {
@@ -212,5 +223,43 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     fun setDestinationText(fb: FloatingButton) {
         destinationText = fb.destText
         Log.e("destinationText", destinationText)
+    }
+
+    /* --------- This is Test Code --------- */
+    fun setRestaurantMenu(idx: Int) {
+        // 오늘 날짜(요일) 받아오기
+        getTodayCalendar()
+
+        // crawling.kt 에서 식당 메뉴 가져오기
+        // Cafeteria 객체 생성
+        // idx == 각 식당 인덱스 (1: 정보센터식당, 2: 복지관, 3: 첨성관, 4: 공식당(교직원), 5: 공식당(학생))
+        var cafe = Cafeteria(idx)
+
+        // 메뉴 가져오기
+        // 날짜 (1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일)
+        // 1: 조식, 2: 중식, 3: 석식
+        //var result = cafe.readMenu(dayOfWeek, mealMenu)
+        var result = cafe.readMenu(1, 2)
+        Log.e("result_menu", result!!.menu.toString())
+    }
+    /* --------------------------------------- */
+
+    fun getTodayCalendar() {
+        var cal: Calendar
+        cal = Calendar.getInstance()
+
+        // 오늘 요일 가져오기 (1~7 : 일~토)
+        dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+
+        // String으로 변환
+        when(dayOfWeek) {
+            1 -> dayOfWeekString = "일요일"
+            2 -> dayOfWeekString = "월요일"
+            3 -> dayOfWeekString = "화요일"
+            4 -> dayOfWeekString = "수요일"
+            5 -> dayOfWeekString = "목요일"
+            6 -> dayOfWeekString = "금요일"
+            7 -> dayOfWeekString = "토요일"
+        }
     }
 }
