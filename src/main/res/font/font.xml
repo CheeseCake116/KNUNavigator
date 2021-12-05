@@ -4,4 +4,6 @@
     <font android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/permanent_marker_regular"/>
+
+
 </font-family>

@@ -9,12 +9,13 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="28dp"
 
         android:text="KNU MAP"
         android:textColor="@color/white"
@@ -26,7 +27,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="28dp"
         android:gravity="right"
         >
     <ImageButton

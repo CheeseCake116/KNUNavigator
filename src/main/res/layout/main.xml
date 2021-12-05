@@ -34,27 +34,19 @@
                     android:textSize="30dp"
                     android:textColor="@color/black"/>
 
-                //중간 선
-                <ImageView
-                    android:src="@drawable/line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    />
                 <ListView
                     android:id="@+id/classlist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="500dp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    />
 
 
             </LinearLayout>
 
 
     //시간표 부분
-        <Button
-            android:id="@+id/testbtn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            />
 
         </LinearLayout>
     </ScrollView>

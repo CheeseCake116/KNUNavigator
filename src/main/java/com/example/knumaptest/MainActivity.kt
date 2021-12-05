@@ -47,26 +47,20 @@ class MainAct : AppCompatActivity() {
 
 
     var ContentList = arrayListOf<ListViewItem>(
-        ListViewItem("1A","운영관리", "융복합관")
+        ListViewItem("1A","운영관리", "융복합관", "7:00 - 9:00")
+
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
-
+        ContentList.add(ListViewItem("2A", "자바 프로그래밍", "IT5", "10:30 - 12:00"))
         val classAdapter = ListViewAdapter(this, ContentList)
 
         val classlist = findViewById<ListView>(R.id.classlist)
         classlist.adapter = classAdapter
 
 
-        var btnLogin = findViewById(R.id.testbtn) as Button
-        btnLogin.setOnClickListener ({
-            val intent = Intent(this, MainAct2::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0);
-            finish()
-        })
     }
 }
 
