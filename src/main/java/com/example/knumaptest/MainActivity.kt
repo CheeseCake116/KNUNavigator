@@ -3,9 +3,16 @@ package com.example.knumaptest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 
 class TitleActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,11 +26,16 @@ class TitleActivity : AppCompatActivity(){
 
 //스플래시 스크린 -> 없어도 됌 -> 로그인 화면
 class MainActivity : AppCompatActivity() {
+
+    //  initialize viewpager
+    private val adapter by lazy { ViewPagerAdapter(supportFragmentManager) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, MainAct2::class.java)
-        startActivity(intent)
-        finish()
+        setContentView(R.layout.activity_main)
+        val viewPager_main = findViewById<ViewPager>(R.id.viewPager_main)
+        viewPager_main.adapter = MainActivity@adapter
+
 
     }
 }
@@ -32,12 +44,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-        var btnLogin = findViewById(R.id.btnLogin) as Button
-        btnLogin.setOnClickListener ({
-            val intent = Intent(this, MainAct::class.java)
-            startActivity(intent)
-            finish()
-        })
     }
 }
 
@@ -89,6 +95,58 @@ class MainAct2 : AppCompatActivity() {
 
 
 
+
+//페이지 전환 애니메이션
+class FirstFragment : Fragment(){
+
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.main, container, false)
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+}
+class SecondFragment : Fragment(){
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.main2, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+}
+
+class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+    override fun getItem(position: Int): Fragment {
+        return when(position) {
+            0 -> FirstFragment()
+            else       ->  SecondFragment()
+        }
+    }
+
+    // 생성 할 Fragment 의 개수
+    override fun getCount() = 2
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        super.destroyItem(container, position, `object`)
+    }
+
+}
 
 
 
