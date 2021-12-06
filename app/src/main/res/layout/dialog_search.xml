@@ -12,18 +12,11 @@
         android:textSize="20sp"
         android:layout_marginBottom="20dp"/>
 
-<!--    <EditText-->
-<!--        android:id="@+id/edtDest"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
     <AutoCompleteTextView
         android:id="@+id/autoEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="목적지를 입력하세요"
         android:completionThreshold="2"/>
-
-
 
 </LinearLayout>

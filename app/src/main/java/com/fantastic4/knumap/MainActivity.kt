@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skt.Tmap.*
 import java.lang.Exception
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -39,6 +40,17 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     var myLong : Double = 0.0 // 현재 위치 _ 경도
     var myLat : Double = 0.0 // 현재 위치 _ 위도
     val mApiKey : String = "l7xx6a347111bc9842009151e620e7301037"
+
+    lateinit var tMapPolyLine: TMapPolyLine
+
+    lateinit var FB: FloatingButton     // FloatingButton 객체 선언
+    var destinationText: String = ""    // Destination Text (목적지)
+    var dayOfWeek: Int = 0              // 오늘 요일
+
+    lateinit var searchMapitems: ArrayList<String>  // searchMap의 key{건물이름(번호)}를 저장할 ArrayList 선언
+    lateinit var autoEditDestinationDlg : AutoCompleteTextView // 목적지 다이얼로그 뷰의 자동완성텍스트뷰
+    var destText : String = "" // 목적지 문자열을 저장하는 변수
+
     companion object{
         var isLoc : Boolean = true
         val searchMap = mapOf<String,TMapPoint>("본관(100)" to TMapPoint(35.890512, 128.612028), "대강당(101)" to TMapPoint(35.892801, 128.610700),
@@ -51,15 +63,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             "정보센터식당(116)" to TMapPoint(35.892296, 128.613262), "복지관식당(305)" to TMapPoint(35.889052, 128.614423), "첨성관식당(114)" to TMapPoint(35.891443, 128.614908),
             "공식당(교직원)(408)" to TMapPoint(35.888322, 128.609688), "공식당(학생)(408)" to TMapPoint(35.888322, 128.609688))
     }
-
-    lateinit var tMapPolyLine: TMapPolyLine
-
-    lateinit var FB: FloatingButton     // FloatingButton 객체 선언
-    var destinationText: String = ""    // Destination Text (목적지)
-    var dayOfWeek: Int = 0              // 오늘 요일
-
-    lateinit var searchMapitems: ArrayList<String>  // searchMap의 key{건물이름(번호)}를 저장할 ArrayList 선언
-    lateinit var autoEdit : AutoCompleteTextView // 자동완성텍스트뷰 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,14 +141,15 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
 
-        // 마커 설정
-        setMarker()
+        fab3.setOnClickListener {
+            showDialog()
+        }
 
-        // 자동완성텍스트뷰 설정
-        setAutoCompleteTV(FB)
+        setMarker()             // 마커 설정
 
-        // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
-        setRestaurantMenu(1)
+        setSearchMapItems()     // searchMapitems 설정
+
+        setRestaurantMenu(1)    // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
     }
 
     override fun onLocationChange(location: Location?) {
@@ -159,7 +163,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             var tMapPointEnd = TMapPoint(0.0, 0.0) // 길찾기 목적지
 
             // 목적지 이름을 통해 searchMap에서 위도 경도 데이터 받아와 목적지 검색
-            tMapPointEnd = searchMap.get(destinationText)!!
+            //tMapPointEnd = searchMap.get(destinationText)!!
 
             // 경로 검색 (보행자)
             TMapData().findPathDataWithType(
@@ -223,11 +227,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         }
     }
 
-    fun setDestinationText(fb: FloatingButton) {
-        destinationText = fb.destText
-        Log.e("destinationText", destinationText)
-    }
-
     fun setRestaurantMenu(idx: Int) {
         // 오늘 날짜(요일) 받아오기
         getTodayCalendar()
@@ -264,16 +263,36 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
     }
 
-    fun setAutoCompleteTV(fb: FloatingButton) {
+    fun setSearchMapItems() {
         // searchMap의 key{건물이름(번호)}를 searchMapitems ArrayList에 저장
         searchMapitems = ArrayList()
         for (i in searchMap.keys){
             searchMapitems.add(i)
+            Log.e("searchMapitems", i)
         }
+    }
 
-        // 자동완성텍스트뷰 설정
-        var tempAdapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)
-        //autoEdit = fb.autoEditDestinationDlg
-        //autoEdit.setAdapter(tempAdapter)
+    fun showDialog() {
+        var dialogView = View.inflate(this, R.layout.dialog_search, null)
+        var dlg = AlertDialog.Builder(this)
+
+        autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
+        var tempAdapter = ArrayAdapter<String>(this,
+            android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
+        autoEditDestinationDlg.setAdapter(tempAdapter)                      // 자동완성텍스트뷰에 적용
+
+        dlg.setView(dialogView)
+
+        dlg.setPositiveButton("확인") { dialog, which ->
+            destText = autoEditDestinationDlg.text.toString()
+            Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+
+            destinationText = destText  // destinationText 설정
+            Log.e("destinationText", destinationText)
+        }
+        dlg.setNegativeButton("취소", null)
+
+        var alertDialog: AlertDialog = dlg.create()
+        alertDialog.show()
     }
 }
