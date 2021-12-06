@@ -5,10 +5,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.view.View
 import android.view.animation.Animation
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class FloatingButton {
 
@@ -21,7 +21,8 @@ class FloatingButton {
     var fab3 : FloatingActionButton
     var mainContext : Context // MainActivity context 저장 변수
     lateinit var dialogView : View // 목적지 다이얼로그 뷰
-    lateinit var dlgEdtDest : EditText // 목적지 다이얼로그 뷰의 에디트텍스트
+    //lateinit var dlgEdtDest : EditText // 목적지 다이얼로그 뷰의 에디트텍스트
+    lateinit var autoEditDestinationDlg : AutoCompleteTextView // 목적지 다이얼로그 뷰의 자동완성텍스트뷰
     var destText : String = "" // 목적지 문자열을 저장하는 변수
 
     constructor(_fab_open: Animation, _fab_close: Animation, _fab: FloatingActionButton, _fab1: FloatingActionButton, _fab2: FloatingActionButton, _fab3: FloatingActionButton, mContext: Context) {
@@ -102,8 +103,8 @@ class FloatingButton {
         var dlg = AlertDialog.Builder(mainContext)
         dlg.setView(dialogView)
         dlg.setPositiveButton("확인") { dialog, which ->
-            dlgEdtDest = dialogView.findViewById<EditText>(R.id.edtDest)
-            destText = dlgEdtDest.text.toString()
+            autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)
+            destText = autoEditDestinationDlg.text.toString()
             Toast.makeText(mainContext, "목적지 : $destText", Toast.LENGTH_SHORT).show()
 
             MainActivity().setDestinationText(this)

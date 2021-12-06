@@ -54,10 +54,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     lateinit var tMapPolyLine: TMapPolyLine
 
-    // Destination Text
-    var destinationText: String = ""
-    // 오늘 요일
-    var dayOfWeek: Int = 0
+    lateinit var FB: FloatingButton     // FloatingButton 객체 선언
+    var destinationText: String = ""    // Destination Text (목적지)
+    var dayOfWeek: Int = 0              // 오늘 요일
+
+    lateinit var searchMapitems: ArrayList<String>  // searchMap의 key{건물이름(번호)}를 저장할 ArrayList 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +135,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
         var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
 
-        var FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
+        FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
 
         // 마커 설정
         setMarker()
@@ -255,5 +256,15 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         // 오늘 요일 가져오기 (1~7 : 일~토)
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+    }
+
+    fun setAutoCompleteTV() {
+        // searchMap의 key{건물이름(번호)}를 searchMapitems ArrayList에 저장
+        searchMapitems = ArrayList()
+        for (i in searchMap.keys){
+            searchMapitems.add(i)
+        }
+
+
     }
 }
