@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     var dayOfWeek: Int = 0              // 오늘 요일
 
     lateinit var searchMapitems: ArrayList<String>  // searchMap의 key{건물이름(번호)}를 저장할 ArrayList 선언
+    lateinit var autoEdit : AutoCompleteTextView // 자동완성텍스트뷰 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1); //위치권한 탐색 허용 관련 내용
             }
-            return;
+            return
         }
 
         // TMap Layout 설정
@@ -140,6 +141,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // 마커 설정
         setMarker()
 
+        // 자동완성텍스트뷰 설정
+        setAutoCompleteTV(FB)
+
         // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
         setRestaurantMenu(1)
     }
@@ -153,7 +157,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             // 경로 설정
             var tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
             var tMapPointEnd = TMapPoint(35.89113011991111, 128.6119321645856) // 중앙도서관(목적지)
-
 
             // 경로 검색 (보행자)
             TMapData().findPathDataWithType(
@@ -258,13 +261,16 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
     }
 
-    fun setAutoCompleteTV() {
+    fun setAutoCompleteTV(fb: FloatingButton) {
         // searchMap의 key{건물이름(번호)}를 searchMapitems ArrayList에 저장
         searchMapitems = ArrayList()
         for (i in searchMap.keys){
             searchMapitems.add(i)
         }
 
-
+        // 자동완성텍스트뷰 설정
+        var tempAdapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)
+        //autoEdit = fb.autoEditDestinationDlg
+        //autoEdit.setAdapter(tempAdapter)
     }
 }
