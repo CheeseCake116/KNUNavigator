@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
     var m_bTrackingMode : Boolean = true
     lateinit var tmapGps : TMapGpsManager
@@ -58,10 +57,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     // Destination Text
     var destinationText: String = ""
     // 오늘 요일
-    var dayOfWeekString = ""
     var dayOfWeek: Int = 0
-    // 조식, 중식, 석식
-    var mealMenu: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,8 +139,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // 마커 설정
         setMarker()
 
-        // 각 식당 메뉴 설정
-        //setRestaurantMenu(1)
+        // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
+        setRestaurantMenu(1)
     }
 
     override fun onLocationChange(location: Location?) {
@@ -170,19 +166,19 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     }
 
     fun setMarker() {
-        // 1. 정보센터식당, 2. 복지관, 3. 첨성관, 4. 공식당(교직원), 5. 공식당(학생) : 항상 마커로 표시
+        // 1: 정보센터식당, 2: 복지관 교직원식당, 3: 카페테리아 첨성, 4: 공식당(교직원), 5: 공식당(학생) : 항상 마커로 표시
         // 정보센터식당 : 35.892376545752455, 128.6131707177347
-        // 복지관 : 35.88916342021079, 128.6144599690982
-        // 첨성관 : 35.8915902231366, 128.61487701142792
-        // 공식당(교직원), 공식당(학생) : 35.88828732332779, 128.60960810892362
-
+        // 복지관 교직원식당 : 35.88916342021079, 128.6144599690982
+        // 카페테리아 첨성 : 35.88898483101483, 128.61447321501393
+        // 공식당(교직원) : 35.88828732332779, 128.60960810892362
+        // 공식당(학생) : 35.888268723784684, 128.6098106243137
         var markerItem: ArrayList<TMapMarkerItem>    // MarkerItem 선언
         var item_point: ArrayList<TMapPoint>    // 식당 Point(좌표) 선언
 
         item_point = ArrayList()
         item_point.add(0, TMapPoint(35.892376545752455, 128.6131707177347)) // 정보센터식당 좌표
-        item_point.add(1, TMapPoint(35.88916342021079, 128.6144599690982))  // 복지관 좌표
-        item_point.add(2, TMapPoint(35.8915902231366, 128.61487701142792))  // 첨성관 좌표
+        item_point.add(1, TMapPoint(35.88916342021079, 128.6144599690982))  // 복지관 교직원식당 좌표
+        item_point.add(2, TMapPoint(35.88898483101483, 128.61447321501393))  // 카페테리아 첨성 좌표
         item_point.add(3, TMapPoint(35.88828732332779, 128.60960810892362)) // 공식당(교직원) 좌표
         item_point.add(4, TMapPoint(35.888268723784684, 128.6098106243137)) // 공식당(학생) 좌표
 
@@ -211,10 +207,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         item.canShowCallout = true
 
         // 풍선뷰에 표시될 주된 메시지 내용 설정
-       when(idx) {
+        when(idx) {
             0 -> item.calloutTitle = "정보센터식당"
-            1 -> item.calloutTitle = "복지관"
-            2 -> item.calloutTitle = "첨성관"
+            1 -> item.calloutTitle = "복지관 교직원식당"
+            2 -> item.calloutTitle = "카페테리아 첨성"
             3 -> item.calloutTitle = "공식당(교직원)"
             4 -> item.calloutTitle = "공식당(학생)"
         }
@@ -225,24 +221,33 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         Log.e("destinationText", destinationText)
     }
 
-    /* --------- This is Test Code --------- */
     fun setRestaurantMenu(idx: Int) {
         // 오늘 날짜(요일) 받아오기
         getTodayCalendar()
 
-        // crawling.kt 에서 식당 메뉴 가져오기
-        // Cafeteria 객체 생성
-        // idx == 각 식당 인덱스 (1: 정보센터식당, 2: 복지관, 3: 첨성관, 4: 공식당(교직원), 5: 공식당(학생))
-        var cafe = Cafeteria(idx)
+        // crawling.kt 에서 식당 메뉴 가져오기 - Cafeteria 객체 생성
+        // idx - 1: 정보센터식당, 2: 복지관 교직원식당, 3: 카페테리아 첨성, 4: 공식당(교직원), 5: 공식당(학생)
+        // 메뉴 가져오기 - Cafeteria.Result 객체 생성
+        // readMenu(날짜, 시간) 메소드 사용
+        // 날짜 - 1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일
+        /* ----------------------------------- 시간 ----------------------------------- */
+        // 정보센터식당, 카페테리아 첨성, 공식당(교직원), 공식당(학생) - 1: 중식, 2: 석식
+        // 복지관 교직원식당 - 1: 중식
+        /* --------------------------------------------------------------------------- */
+        var cafe : Cafeteria
+        var result1: Cafeteria.Result
+        var result2: Cafeteria.Result
+        object: Thread() {
+            override fun run() {
+                cafe = Cafeteria(idx)
+                result1 = cafe.readMenu(dayOfWeek, 1)!!
+                result2 = cafe.readMenu(dayOfWeek, 2)!!
 
-        // 메뉴 가져오기
-        // 날짜 (1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일)
-        // 1: 조식, 2: 중식, 3: 석식
-        //var result = cafe.readMenu(dayOfWeek, mealMenu)
-        var result = cafe.readMenu(1, 2)
-        Log.e("result_menu", result!!.menu.toString())
+                Log.e("result1_menu", result1.toString())
+                Log.e("result2_menu", result2.toString())
+            }
+        }.start()
     }
-    /* --------------------------------------- */
 
     fun getTodayCalendar() {
         var cal: Calendar
@@ -250,16 +255,5 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         // 오늘 요일 가져오기 (1~7 : 일~토)
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
-
-        // String으로 변환
-        when(dayOfWeek) {
-            1 -> dayOfWeekString = "일요일"
-            2 -> dayOfWeekString = "월요일"
-            3 -> dayOfWeekString = "화요일"
-            4 -> dayOfWeekString = "수요일"
-            5 -> dayOfWeekString = "목요일"
-            6 -> dayOfWeekString = "금요일"
-            7 -> dayOfWeekString = "토요일"
-        }
     }
 }
