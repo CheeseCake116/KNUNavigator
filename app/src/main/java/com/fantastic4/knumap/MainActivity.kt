@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     lateinit var searchMapitems: ArrayList<String>  // searchMap의 key{건물이름(번호)}를 저장할 ArrayList 선언
     lateinit var autoEditDestinationDlg : AutoCompleteTextView // 목적지 다이얼로그 뷰의 자동완성텍스트뷰
     var destText : String = "" // 목적지 문자열을 저장하는 변수
+    lateinit var markerItemIDs : ArrayList<String>
 
     lateinit var MenuArrayList: ArrayList<ArrayList<String>>
 
@@ -187,6 +188,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         balBitmap = balBitmap.scale(61, 100, false)
 
         markerItem = ArrayList()
+        markerItemIDs = ArrayList()
         var item: TMapMarkerItem
         for(idx: Int in 0..4) {
             item = TMapMarkerItem()
@@ -198,7 +200,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
             markerItem.add(idx, item)   // markerItem에 item 추가
 
-            tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
+            tmapview.addMarkerItem("markerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
+            Log.e("whereisID", "where")
+            Log.e("id", item!!.id)
+            markerItemIDs.add(item!!.id)
         }
     }
 
@@ -317,6 +322,30 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     override fun onCalloutRightButton(item: TMapMarkerItem?) {
         var dialogView = View.inflate(this, R.layout.diet, null)
         var dlg = AlertDialog.Builder(this)
+        var cafeName = dialogView.findViewById<TextView>(R.id.cafeName)
+        var cafeDiet = dialogView.findViewById<TextView>(R.id.cafeDiet)
+        var cafeNames = arrayOf("정보센터식당", "복지관 교직원식당", "카페테리아 첨성", "공식당(교직원)", "공식당(학생)")
+        var cafe : Cafeteria
+
+        var itemID = item!!.id
+        Log.e("id", itemID)
+        Log.e("size", markerItemIDs.size.toString())
+        object : Thread() {
+            override fun run() {
+                for (i in markerItemIDs.indices) {
+                    Log.e("help", "here i am")
+                    Log.e("id$i", markerItemIDs[i])
+                    if (itemID == markerItemIDs[i]) {
+                        runOnUiThread{
+                            cafeName.setText(cafeNames[i])
+                            cafeDiet.setText(MenuArrayList[i][0])
+                        }
+                        break
+                    }
+                }
+            }
+        }.start()
+
         dlg.setView(dialogView)
         dlg.show()
     }

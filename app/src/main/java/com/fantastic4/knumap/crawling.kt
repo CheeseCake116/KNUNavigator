@@ -61,7 +61,7 @@ class Cafeteria {
         }
 
         override fun toString(): String {
-            var str = menu.joinToString()
+            var str = menu.joinToString("\n", "", "")
             return str
         }
     }
