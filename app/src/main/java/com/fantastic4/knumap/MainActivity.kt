@@ -201,8 +201,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         // 마커 아이콘 "Bitmap"으로 불러오기
         var bitmap: Bitmap
+        var balBitmap: Bitmap
         bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.marker_map_icon)
         bitmap = bitmap.scale(100, 100, false)
+        balBitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.ballon_arrow)
+        balBitmap = balBitmap.scale(61, 100, false)
 
         markerItem = ArrayList()
         var item: TMapMarkerItem
@@ -212,7 +215,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
             item.tMapPoint = item_point[idx]  // 마커 좌표 설정
             setBalloonView(item, idx)   // 풍선뷰 설정
-            item.calloutRightButtonImage = bitmap
+            item.calloutRightButtonImage = balBitmap
 
 
             markerItem.add(idx, item)   // markerItem에 item 추가
