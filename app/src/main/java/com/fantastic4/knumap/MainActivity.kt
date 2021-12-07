@@ -34,7 +34,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.skt.Tmap.TMapMarkerItem
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback, TMapView.OnCalloutRightButtonClickCallback {
 
     var m_bTrackingMode : Boolean = true
     lateinit var tmapGps : TMapGpsManager
@@ -204,7 +204,6 @@ class MainActivity : AppCompatActivity() {
             setBalloonView(item, idx)   // 풍선뷰 설정
             item.calloutRightButtonImage = balBitmap
 
-
             markerItem.add(idx, item)   // markerItem에 item 추가
 
             tmapview.addMarkerItem("merkerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
@@ -298,5 +297,13 @@ class MainActivity : AppCompatActivity() {
         var dlg = AlertDialog.Builder(this)
         dlg.setView(dialogView)
         dlg.show()
+    }
+
+    override fun onLocationChange(location: Location?) {
+        if(m_bTrackingMode) {
+            myLong = location!!.longitude
+            myLat = location.latitude
+            tmapview.setLocationPoint(myLong, myLat)
+        }
     }
 }
