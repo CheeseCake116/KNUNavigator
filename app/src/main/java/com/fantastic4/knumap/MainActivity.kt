@@ -32,8 +32,14 @@ import com.skt.Tmap.poi_item.TMapPOIItem
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import com.skt.Tmap.TMapMarkerItem
 
-class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback {
+import com.skt.Tmap.TMapView.OnCalloutRightButtonClickCallback
+
+
+
+
+class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback, OnCalloutRightButtonClickCallback {
     var m_bTrackingMode : Boolean = true
     lateinit var tmapGps : TMapGpsManager
     lateinit var tmapview : TMapView
@@ -206,6 +212,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
             item.tMapPoint = item_point[idx]  // 마커 좌표 설정
             setBalloonView(item, idx)   // 풍선뷰 설정
+            item.calloutRightButtonImage = bitmap
+
 
             markerItem.add(idx, item)   // markerItem에 item 추가
 
@@ -294,5 +302,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         var alertDialog: AlertDialog = dlg.create()
         alertDialog.show()
+    }
+
+    override fun onCalloutRightButton(item: TMapMarkerItem?) {
+        Log.e("hi", "hi")
     }
 }
