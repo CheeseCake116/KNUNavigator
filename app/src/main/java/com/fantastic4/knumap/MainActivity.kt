@@ -35,12 +35,7 @@ import kotlin.collections.ArrayList
 import com.skt.Tmap.TMapMarkerItem
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback, TMapView.OnCalloutRightButtonClickCallback {
-
-
-
-
-
-class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback, OnCalloutRightButtonClickCallback {
+    
     var m_bTrackingMode : Boolean = true
     lateinit var tmapGps : TMapGpsManager
     lateinit var tmapview : TMapView
@@ -157,30 +152,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         setSearchMapItems()     // searchMapitems 설정
 
         setRestaurantMenu(1)    // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
-    }
-
-    override fun onLocationChange(location: Location?) {
-        if(m_bTrackingMode) {
-            myLong = location!!.longitude
-            myLat = location.latitude
-            tmapview.setLocationPoint(myLong, myLat)
-
-            // 경로 설정
-            var tMapPointStart = TMapPoint(myLat, myLong) //현재 위치
-            var tMapPointEnd = TMapPoint(0.0, 0.0) // 길찾기 목적지
-
-            // 목적지 이름을 통해 searchMap에서 위도 경도 데이터 받아와 목적지 검색
-            //tMapPointEnd = searchMap.get(destinationText)!!
-
-            // 경로 검색 (보행자)
-            TMapData().findPathDataWithType(
-                TMapData.TMapPathType.PEDESTRIAN_PATH, tMapPointStart, tMapPointEnd,
-                TMapData.FindPathDataListenerCallback { polyLine ->
-                    polyLine.lineColor = Color.BLUE
-                    polyLine.lineWidth = 5f
-                    tmapview.addTMapPath(polyLine)
-                })
-        }
     }
 
     fun setMarker() {
