@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     lateinit var autoEditDestinationDlg : AutoCompleteTextView // 목적지 다이얼로그 뷰의 자동완성텍스트뷰
     var destText : String = "" // 목적지 문자열을 저장하는 변수
 
+    lateinit var MenuArrayList: ArrayList<ArrayList<String>>
+
     companion object{
         var isLoc : Boolean = true
         val searchMap = mapOf<String,TMapPoint>("본관(100)" to TMapPoint(35.890512, 128.612028), "대강당(101)" to TMapPoint(35.892801, 128.610700),
@@ -151,7 +153,12 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         setSearchMapItems()     // searchMapitems 설정
 
-        setRestaurantMenu(1)    // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
+        MenuArrayList = ArrayList(ArrayList())
+        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
+        setRestaurantMenu(2, 1)
+        setRestaurantMenu(3, 1)
+        setRestaurantMenu(4, 2)
+        setRestaurantMenu(5, 2)
     }
 
     fun setMarker() {
@@ -225,7 +232,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         }
     }
 
-    fun setRestaurantMenu(idx: Int) {
+    fun setRestaurantMenu(idx: Int, cnt: Int) {
         // 오늘 날짜(요일) 받아오기
         getTodayCalendar()
 
@@ -235,20 +242,33 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // readMenu(날짜, 시간) 메소드 사용
         // 날짜 - 1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일
         /* ----------------------------------- 시간 ----------------------------------- */
-        // 정보센터식당, 카페테리아 첨성, 공식당(교직원), 공식당(학생) - 1: 중식, 2: 석식
-        // 복지관 교직원식당 - 1: 중식
+        // 정보센터식당, 공식당(교직원), 공식당(학생) - 1: 중식, 2: 석식
+        // 복지관 교직원식당, 카페테리아 첨성 - 1: 중식
         /* --------------------------------------------------------------------------- */
+        var tempArrayList: ArrayList<String>
+        tempArrayList = ArrayList()
+
         var cafe : Cafeteria
         var result1: Cafeteria.Result
         var result2: Cafeteria.Result
         object: Thread() {
             override fun run() {
                 cafe = Cafeteria(idx)
-                result1 = cafe.readMenu(dayOfWeek, 1)!!
-                result2 = cafe.readMenu(dayOfWeek, 2)!!
+                if(cnt == 2) {
+                    result1 = cafe.readMenu(dayOfWeek, 1)!!
+                    result2 = cafe.readMenu(dayOfWeek, 2)!!
 
-                Log.e("result1_menu", result1.toString())
-                Log.e("result2_menu", result2.toString())
+                    tempArrayList.add(result1.toString())
+                    tempArrayList.add(result2.toString())
+                }
+                if(cnt == 1) {
+                    result1 = cafe.readMenu(dayOfWeek, 1)!!
+
+                    tempArrayList.add(result1.toString())
+                    tempArrayList.add("")
+                }
+
+                MenuArrayList.add(tempArrayList)
             }
         }.start()
     }
