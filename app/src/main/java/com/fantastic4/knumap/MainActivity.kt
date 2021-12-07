@@ -195,6 +195,22 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         }
     }
 
+    // 길찾기
+    fun searchRoute(){
+        // 출발지 : 현위치, 목적지 : map에서 받아옴
+        var myLoc :TMapPoint = tmapGps.location
+        var destLoc = searchMap.get(destText)
+
+        // 경로 검색 (보행자)
+        TMapData().findPathDataWithType(
+            TMapData.TMapPathType.PEDESTRIAN_PATH, myLoc, destLoc,
+            TMapData.FindPathDataListenerCallback { polyLine ->
+                polyLine.lineColor = Color.BLUE
+                polyLine.lineWidth = 5f
+                tmapview.addTMapPath(polyLine)
+            })
+    }
+
     fun setBalloonView(item: TMapMarkerItem, idx: Int) {
         // 풍선뷰 사용 여부 설정
         item.canShowCallout = true
@@ -268,7 +284,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         dlg.setPositiveButton("확인") { dialog, which ->
             destText = autoEditDestinationDlg.text.toString()
             Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
-
+            searchRoute()
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }
