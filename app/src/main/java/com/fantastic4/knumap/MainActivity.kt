@@ -305,6 +305,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     }
 
     override fun onCalloutRightButton(item: TMapMarkerItem?) {
-        Log.e("hi", "hi")
+        var dialogView = View.inflate(this, R.layout.diet, null)
+        var dlg = AlertDialog.Builder(this)
+        dlg.setView(dialogView)
+        dlg.show()
     }
 }
