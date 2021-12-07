@@ -38,9 +38,9 @@ class Cafeteria {
 
     constructor(docNumber: Int) {
         when (docNumber) {
-            1 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=35").get()
-            2 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=36").get()
-            3 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=37").get()
+            1 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=35").get()   // 정보센터
+            2 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=36").get()   // 복지관
+            3 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=37").get()   // 카페테리아 첨성
             4 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=85").get()
             5 -> doc = Jsoup.connect("https://coop.knu.ac.kr/sub03/sub01_01.html?shop_sqno=86").get()
         }

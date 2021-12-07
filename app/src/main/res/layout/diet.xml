@@ -18,12 +18,44 @@
         android:layout_height="400dp"
         android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/cafeDiet"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="메뉴들"
-            android:layout_gravity="top|center"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="점심"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/cafeDiet0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="메뉴들"
+                android:layout_gravity="top|center"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저녁"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/cafeDiet1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="메뉴들"
+                android:layout_gravity="top|center"
+                android:gravity="center"/>
+        </LinearLayout>
     </ScrollView>
 
 

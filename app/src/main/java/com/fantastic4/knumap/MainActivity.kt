@@ -155,11 +155,12 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         setSearchMapItems()     // searchMapitems 설정
 
         MenuArrayList = ArrayList(ArrayList())
-        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터식당으로 테스트)
-        setRestaurantMenu(2, 1)
-        setRestaurantMenu(3, 1)
-        setRestaurantMenu(4, 2)
-        setRestaurantMenu(5, 2)
+        setRestaurantMenu()
+//        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터)
+//        setRestaurantMenu(2, 1)     // 복지관 교직원
+//        setRestaurantMenu(3, 1)     // 카페테리아 첨성
+//        setRestaurantMenu(4, 2)     //
+//        setRestaurantMenu(5, 2)
     }
 
     fun setMarker() {
@@ -237,7 +238,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         }
     }
 
-    fun setRestaurantMenu(idx: Int, cnt: Int) {
+    fun setRestaurantMenu() {
         // 오늘 날짜(요일) 받아오기
         getTodayCalendar()
 
@@ -250,30 +251,38 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // 정보센터식당, 공식당(교직원), 공식당(학생) - 1: 중식, 2: 석식
         // 복지관 교직원식당, 카페테리아 첨성 - 1: 중식
         /* --------------------------------------------------------------------------- */
-        var tempArrayList: ArrayList<String>
-        tempArrayList = ArrayList()
 
-        var cafe : Cafeteria
-        var result1: Cafeteria.Result
-        var result2: Cafeteria.Result
         object: Thread() {
             override fun run() {
-                cafe = Cafeteria(idx)
-                if(cnt == 2) {
-                    result1 = cafe.readMenu(dayOfWeek, 1)!!
-                    result2 = cafe.readMenu(dayOfWeek, 2)!!
+                for(i: Int in 1..5) {
+                    var cafe : Cafeteria
+                    var result1: Cafeteria.Result
+                    var result2: Cafeteria.Result
+                    var cnt: Int
+                    var tempArrayList: ArrayList<String>
+                    tempArrayList = ArrayList()
 
-                    tempArrayList.add(result1.toString())
-                    tempArrayList.add(result2.toString())
+                    cafe = Cafeteria(i)
+                    cnt = 2
+                    if(i == 2 || i == 3) {
+                        cnt = 1
+                    }
+
+                    if(cnt == 2) {
+                        result1 = cafe.readMenu(dayOfWeek, 1)!!
+                        result2 = cafe.readMenu(dayOfWeek, 2)!!
+
+                        tempArrayList.add(result1.toString())
+                        tempArrayList.add(result2.toString())
+                    }
+                    if(cnt == 1) {
+                        result1 = cafe.readMenu(dayOfWeek, 1)!!
+
+                        tempArrayList.add(result1.toString())
+                        tempArrayList.add("")
+                    }
+                    MenuArrayList.add(tempArrayList)
                 }
-                if(cnt == 1) {
-                    result1 = cafe.readMenu(dayOfWeek, 1)!!
-
-                    tempArrayList.add(result1.toString())
-                    tempArrayList.add("")
-                }
-
-                MenuArrayList.add(tempArrayList)
             }
         }.start()
     }
@@ -282,8 +291,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var cal: Calendar
         cal = Calendar.getInstance()
 
-        // 오늘 요일 가져오기 (1~7 : 일~토)
-        dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+        // 오늘 요일 가져오기 (1~7 : 일~토) 1일 2월 3화 4수 5목 6금 7토
+        dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1
     }
 
     fun setSearchMapItems() {
@@ -323,7 +332,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var dialogView = View.inflate(this, R.layout.diet, null)
         var dlg = AlertDialog.Builder(this)
         var cafeName = dialogView.findViewById<TextView>(R.id.cafeName)
-        var cafeDiet = dialogView.findViewById<TextView>(R.id.cafeDiet)
+        var cafeDiet0 = dialogView.findViewById<TextView>(R.id.cafeDiet0)
+        var cafeDiet1 = dialogView.findViewById<TextView>(R.id.cafeDiet1)
         var cafeNames = arrayOf("정보센터식당", "복지관 교직원식당", "카페테리아 첨성", "공식당(교직원)", "공식당(학생)")
         var cafe : Cafeteria
 
@@ -338,7 +348,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                     if (itemID == markerItemIDs[i]) {
                         runOnUiThread{
                             cafeName.setText(cafeNames[i])
-                            cafeDiet.setText(MenuArrayList[i][0])
+                            cafeDiet0.setText(MenuArrayList[i][0])
+                            cafeDiet1.setText(MenuArrayList[i][1])
                         }
                         break
                     }
