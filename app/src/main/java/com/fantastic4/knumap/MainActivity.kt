@@ -27,6 +27,7 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.LocationListener
+import android.view.View.INVISIBLE
 import android.widget.*
 import androidx.core.graphics.scale
 import com.skt.Tmap.poi_item.TMapPOIItem
@@ -34,6 +35,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import com.skt.Tmap.TMapMarkerItem
+import com.skt.Tmap.TMapPoint
+
+
+
 
 class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallback, TMapView.OnCalloutRightButtonClickCallback {
     
@@ -72,6 +77,22 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             "공식당(교직원)(408)" to TMapPoint(35.888322, 128.609688), "공식당(학생)(408)" to TMapPoint(35.888322, 128.609688))
     }
 
+    //학교 바로가기
+    var locateBtnSw : Boolean = false
+    lateinit var locateBtn : FloatingActionButton
+    fun locateBtnTrue() {
+        tmapview.setCenterPoint(128.6104599690982, 35.89016342021079)
+        locateBtn.setImageResource(R.drawable.ic_point);
+        locateBtnSw=false
+    }
+    fun locateBtnFalse() {
+        tmapview.setCenterPoint(myLong,myLat)
+        locateBtn.setImageResource(R.drawable.school)
+        locateBtnSw=true
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -91,6 +112,13 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tmapview = TMapView(this)
         linearLayoutTmap.addView(tmapview)
 
+        //지도 업데이트
+        fun mapUpdate() {
+            val tpoint: TMapPoint = tmapview.getCenterPoint()
+            val Latitude = tpoint.latitude
+            val Longitude = tpoint.longitude
+            tmapview.setCenterPoint(Longitude, Latitude)
+        }
         // TMap Key 인증
         tmapview.setSKTMapApiKey(mApiKey)
 
@@ -137,80 +165,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 isLoc = true
             }
         }
-
-        // 플로팅 버튼
-        var fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        var fab_close = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
-
-
-        var fab = findViewById<FloatingActionButton>(R.id.fab_btnMain)
-        var fab1 = findViewById<FloatingActionButton>(R.id.fab_btn1)
-        var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
-        var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
-
-
-
-        FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
-
-
-        fab.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-
-
-        fun initializeFab(){
-            fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-            fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-            fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-
-
-            fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
-            fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
-            fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
-        }
-
-        initializeFab()
-
-        fab1.setOnClickListener{
-            initializeFab()
-            if(fabCont != 1) {
-                fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
-                fabCont = 1
-            }
-        }
-        fab2.setOnClickListener{
-            initializeFab()
-            if(fabCont != 2) {
-                fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
-                fabCont = 2
-            }
-        }
-        fab3.setOnClickListener {
-            initializeFab()
-            if(fabCont != 3) {
-                fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
-                showDialog()
-            }
-        }
-        if (fabCont==0){
-            initializeFab()
-        }
-
-        setMarker()             // 마커 설정
-
-        setSearchMapItems()     // searchMapitems 설정
-
-        MenuArrayList = ArrayList(ArrayList())
-        setRestaurantMenu()
-//        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터)
-//        setRestaurantMenu(2, 1)     // 복지관 교직원
-//        setRestaurantMenu(3, 1)     // 카페테리아 첨성
-//        setRestaurantMenu(4, 2)     //
-//        setRestaurantMenu(5, 2)
-    }
-
-    fun setMarker() {
+        //Marker
         // 1: 정보센터식당, 2: 복지관 교직원식당, 3: 카페테리아 첨성, 4: 공식당(교직원), 5: 공식당(학생) : 항상 마커로 표시
         // 정보센터식당 : 35.892376545752455, 128.6131707177347
         // 복지관 교직원식당 : 35.88916342021079, 128.6144599690982
@@ -267,7 +222,111 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             Log.e("id", item!!.id)
             markerItemIDs.add(item!!.id)
         }
+
+        fun showMarker(count:Boolean) {
+            if(count==false)
+            for(idx:Int in 0..4){
+                markerItem[idx].setVisible(0)
+            }
+            else
+                for(idx:Int in 0..4){
+                    markerItem[idx].setVisible(TMapMarkerItem.VISIBLE)
+                }
+            mapUpdate()
+        }
+        showMarker(false)
+
+        // 학교 바로가기 버튼
+        locateBtn = findViewById(R.id.btnSchool)
+        locateBtn.setOnClickListener{
+            if (locateBtnSw==true) {
+                locateBtnTrue()
+            }
+            else{
+                locateBtnFalse()
+            }
+        }
+
+
+
+        // 플로팅 버튼
+        var fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+        var fab_close = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
+
+
+        var fab = findViewById<FloatingActionButton>(R.id.fab_btnMain)
+        var fab1 = findViewById<FloatingActionButton>(R.id.fab_btn1)
+        var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
+        var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
+
+
+
+        FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
+
+
+        fab.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+
+        //버튼 색, 클릭 리스너
+        fun initializeFab(){
+            fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+            fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+            fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+
+
+            fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+            fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+            fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+        }
+
+        initializeFab()
+        fab1.setOnClickListener{
+            initializeFab()
+            if(fabCont != 1) {
+                fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                fabCont = 1
+            }
+            else fabCont=0
+        }
+        fab2.setOnClickListener{
+            initializeFab()
+            if(fabCont != 2) {
+                fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                fabCont = 2
+                showMarker(true)
+            }
+            else {fabCont = 0
+                showMarker(false)
+            }
+        }
+        fab3.setOnClickListener {
+            initializeFab()
+            if(fabCont != 3) {
+                fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                showDialog()
+            }
+            else fabCont = 0
+        }
+        if (fabCont==0){
+            initializeFab()
+        }
+
+
+
+
+        setSearchMapItems()     // searchMapitems 설정
+
+        MenuArrayList = ArrayList(ArrayList())
+        setRestaurantMenu()
+//        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터)
+//        setRestaurantMenu(2, 1)     // 복지관 교직원
+//        setRestaurantMenu(3, 1)     // 카페테리아 첨성
+//        setRestaurantMenu(4, 2)     //
+//        setRestaurantMenu(5, 2)
     }
+    //OnCreate 끝
 
     // 길찾기
     fun searchRoute(){
@@ -428,6 +487,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             myLong = location!!.longitude
             myLat = location.latitude
             tmapview.setLocationPoint(myLong, myLat)
+            locateBtnTrue()
         }
     }
 }

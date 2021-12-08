@@ -12,10 +12,21 @@
         android:id="@+id/linearlayoutTmap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_anchor="@+id/linearlayoutTmap"
+        app:layout_anchorGravity="center">
 
     </LinearLayout>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSchool"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="start|bottom"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/school"
+        android:tint="@color/C1Red"/>
     <ImageButton
         android:id="@+id/btnLoc"
         android:layout_width="55dp"
@@ -23,22 +34,21 @@
         android:layout_gravity="start|bottom"
         android:layout_margin="20dp"
         android:background="@color/white"
-        android:src="@drawable/myloc_off"
-        />
+        android:src="@drawable/myloc_off" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
         android:layout_gravity="end|bottom"
-        android:visibility="invisible"
+        android:layout_margin="24dp"
         android:src="@drawable/timetable"
+        android:visibility="invisible"
         app:borderWidth="0dp"
-        app:layout_constraintTop_toTopOf="@id/fab_btnMain"
         app:layout_constraintBottom_toBottomOf="@id/fab_btnMain"
+        app:layout_constraintEnd_toEndOf="@id/fab_btnMain"
         app:layout_constraintStart_toStartOf="@id/fab_btnMain"
-        app:layout_constraintEnd_toEndOf="@id/fab_btnMain"/>
+        app:layout_constraintTop_toTopOf="@id/fab_btnMain" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_btn2"
@@ -79,4 +89,7 @@
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
