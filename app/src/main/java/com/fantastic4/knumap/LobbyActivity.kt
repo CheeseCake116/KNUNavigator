@@ -21,7 +21,7 @@ import com.fantastic4.knumap.FloatingButton as FloatingButton1
 class TitleActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LobbyActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-
     }
 }
 class TestActivity : AppCompatActivity(){
@@ -72,13 +71,13 @@ class LobbyActivity : AppCompatActivity() {
 //메인화면 1, 수업과 시간표
 class FirstFragment : Fragment() {
     var ContentList = arrayListOf<ListViewItem>(
-            ListViewItem("1A", "운영관리", "융복합관", "7:00 - 9:00")
+            ListViewItem("1A", "운영관리", "IT대학융복합공학관(415)", "7:00 - 9:00")
     )
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.main, container, false)
-        ContentList.add(ListViewItem("2A", "자바 프로그래밍", "IT5", "10:30 - 12:00"))
-        ContentList.add(ListViewItem("3A", "자료 구조", "IT4", "1:30 - 3:00"))
+        ContentList.add(ListViewItem("2A", "자바 프로그래밍", "IT대학2호관(416)", "10:30 - 12:00"))
+        ContentList.add(ListViewItem("3A", "자료 구조", "IT대학2호관(416)", "1:30 - 3:00"))
         val classAdapter = getActivity()?.let { ListViewAdapter(it, ContentList) }
         val classlist = view.findViewById<ListView>(R.id.classlist)
         classlist.adapter = classAdapter

@@ -34,7 +34,9 @@ class ListViewAdapter(val context: Context, val ContentList: ArrayList<ListViewI
         val directBtn = view.findViewById<ImageButton>(R.id.directBtn)
         directBtn.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("location",location.text)
             context.startActivity(intent)
+
         })
         return view
     }

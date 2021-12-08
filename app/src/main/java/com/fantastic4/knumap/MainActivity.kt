@@ -97,6 +97,12 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //문제인 부분
+        var directLoc = intent.getStringExtra("location")
+        if(directLoc!=null) searchRoute(directLoc)
+
+
         // 권한 설정정보
         if(ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
@@ -329,10 +335,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     //OnCreate 끝
 
     // 길찾기
-    fun searchRoute(){
+    fun searchRoute(des:String){
         // 출발지 : 현위치, 목적지 : map에서 받아옴
         var myLoc :TMapPoint = tmapGps.location
-        var destLoc = searchMap.get(destText)
+        var destLoc = searchMap.get(des)
 
         // 경로 검색 (보행자)
         TMapData().findPathDataWithType(
@@ -438,7 +444,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         dlg.setPositiveButton("확인") { dialog, which ->
             destText = autoEditDestinationDlg.text.toString()
             Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
-            searchRoute()
+            searchRoute(destText)
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }
