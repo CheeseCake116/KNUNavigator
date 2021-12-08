@@ -1,6 +1,8 @@
 package com.fantastic4.knumap
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +15,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.fantastic4.knumap.FloatingButton as FloatingButton1
 
 class TitleActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, LobbyActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -34,7 +38,13 @@ class TestActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test1)
-
+        var testBtn = findViewById<FloatingActionButton>(R.id.testBtn)
+        testBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+        testBtn.setOnClickListener{
+            testBtn.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+            testBtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DA2127")));
+            testBtn.setBackgroundResource(R.color.C1Red)
+        }
     }
 }
 //스플래시 스크린 -> 없어도 됌 -> 로그인 화면

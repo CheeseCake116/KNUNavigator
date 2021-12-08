@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     lateinit var tMapPolyLine: TMapPolyLine
 
     lateinit var FB: FloatingButton     // FloatingButton 객체 선언
+    var fabCont: Int = 0                // Fab 다른 기능과 연결
+
     var destinationText: String = ""    // Destination Text (목적지)
     var dayOfWeek: Int = 0              // 오늘 요일
 
@@ -140,22 +142,59 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
         var fab_close = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
 
-        val C1Red = R.color.C1Red
+
         var fab = findViewById<FloatingActionButton>(R.id.fab_btnMain)
         var fab1 = findViewById<FloatingActionButton>(R.id.fab_btn1)
         var fab2 = findViewById<FloatingActionButton>(R.id.fab_btn2)
         var fab3 = findViewById<FloatingActionButton>(R.id.fab_btn3)
 
+
+
         FB = FloatingButton(fab_open, fab_close, fab, fab1, fab2, fab3, this)
 
+
         fab.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-        fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-        fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
-        fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
 
 
+        fun initializeFab(){
+            fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+            fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+            fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#DA2127"))
+
+
+            fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+            fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+            fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.white))
+        }
+
+        initializeFab()
+
+        fab1.setOnClickListener{
+            initializeFab()
+            if(fabCont != 1) {
+                fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                fabCont = 1
+            }
+        }
+        fab2.setOnClickListener{
+            initializeFab()
+            if(fabCont != 2) {
+                fab2.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab2.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                fabCont = 2
+            }
+        }
         fab3.setOnClickListener {
-            showDialog()
+            initializeFab()
+            if(fabCont != 3) {
+                fab3.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                fab3.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
+                showDialog()
+            }
+        }
+        if (fabCont==0){
+            initializeFab()
         }
 
         setMarker()             // 마커 설정
@@ -189,17 +228,28 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         item_point.add(4, TMapPoint(35.888268723784684, 128.6098106243137)) // 공식당(학생) 좌표
 
         // 마커 아이콘 "Bitmap"으로 불러오기
+        //비트맵
         var bitmap: Bitmap
         var balBitmap: Bitmap
-        bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.marker_map_icon)
+        bitmap = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.marker_map_icon
+        )
         bitmap = bitmap.scale(100, 100, false)
-        balBitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.ballon_arrow)
+        balBitmap =
+            BitmapFactory.decodeResource(
+                applicationContext.resources,
+                R.drawable.ballon_arrow
+            )
         balBitmap = balBitmap.scale(61, 100, false)
 
+        //마커
         markerItem = ArrayList()
         markerItemIDs = ArrayList()
         var item: TMapMarkerItem
-        for(idx: Int in 0..4) {
+
+
+        for (idx: Int in 0..4) {
             item = TMapMarkerItem()
             item.icon = bitmap
             item.setPosition(0.5f, 1.0f)    // 마커 중심점 중앙 하단으로 설정
@@ -209,7 +259,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
             markerItem.add(idx, item)   // markerItem에 item 추가
 
-            tmapview.addMarkerItem("markerItem$idx", markerItem[idx])   // tmapview에 markerItem 추가
+            tmapview.addMarkerItem(
+                "markerItem$idx",
+                markerItem[idx]
+            )   // tmapview에 markerItem 추가
             Log.e("whereisID", "where")
             Log.e("id", item!!.id)
             markerItemIDs.add(item!!.id)
@@ -330,10 +383,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }
-        dlg.setNegativeButton("취소", null)
+        dlg.setNegativeButton("취소",null)
 
         var alertDialog: AlertDialog = dlg.create()
         alertDialog.show()
+        fabCont = 0
     }
 
     override fun onCalloutRightButton(item: TMapMarkerItem?) {
