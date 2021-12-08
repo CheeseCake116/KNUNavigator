@@ -1,35 +1,23 @@
 package com.fantastic4.knumap
 
 import android.Manifest
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.pm.Signature
 import android.graphics.Color
 import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
-import android.view.ViewGroup
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.skt.Tmap.*
-import java.lang.Exception
-import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.location.LocationListener
 import android.widget.*
 import androidx.core.graphics.scale
-import com.skt.Tmap.poi_item.TMapPOIItem
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import com.skt.Tmap.TMapMarkerItem
@@ -309,7 +297,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var dlg = AlertDialog.Builder(this)
 
         autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
-        var tempAdapter = ArrayAdapter<String>(this,
+        var tempAdapter = AutoSuggestAdapter(this,
             android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
         autoEditDestinationDlg.setAdapter(tempAdapter)                      // 자동완성텍스트뷰에 적용
 
