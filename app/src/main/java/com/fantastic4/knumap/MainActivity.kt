@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     lateinit var MenuArrayList: ArrayList<ArrayList<String>>
 
+    lateinit var tempAdapter: AutoSuggestAdapter
+
     companion object{
         var isLoc : Boolean = true
         val searchMap = mapOf<String,TMapPoint>("본관(100)" to TMapPoint(35.890512, 128.612028), "대강당(101)" to TMapPoint(35.892801, 128.610700),
@@ -141,6 +143,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         setMarker()             // 마커 설정
 
         setSearchMapItems()     // searchMapitems 설정
+
+        tempAdapter = AutoSuggestAdapter(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
+        tempAdapter.setData(searchMapitems)
+        Log.e("items", searchMapitems.toString())
 
         MenuArrayList = ArrayList(ArrayList())
         setRestaurantMenu()
@@ -297,8 +303,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var dlg = AlertDialog.Builder(this)
 
         autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
-        var tempAdapter = AutoSuggestAdapter(this,
-            android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
+//        var tempAdapter = AutoSuggestAdapter(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
+//        tempAdapter.setData(searchMapitems)
         autoEditDestinationDlg.setAdapter(tempAdapter)                      // 자동완성텍스트뷰에 적용
 
         dlg.setView(dialogView)
