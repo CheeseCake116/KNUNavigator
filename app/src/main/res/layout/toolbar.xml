@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+
+        android:text="KNU MAP"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:letterSpacing="-0.02"
+        android:fontFamily="@font/permanent_marker_regular"
+        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="28dp"
+        android:gravity="right"
+        >
+    <ImageButton android:id="@+id/mapBtn"
+        android:src="@drawable/ic_map"
+        android:background="#00ff0000"
+        android:layout_marginRight="15dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageButton
+        android:src="@drawable/ic_mag"
+        android:background="#00ff0000"
+        android:layout_marginLeft="15dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageButton
+        android:src="@drawable/ic_list"
+        android:background="#00ff0000"
+        android:layout_marginLeft="30dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>
+

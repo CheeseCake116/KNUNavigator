@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainAct"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            >
+            //수업 부분
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:orientation="vertical"
+                android:background="#EEEEEE">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/main_class_box1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ClassDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="5"
+                    android:text="11월 3일, 수요일"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"/>
+
+                <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="4.8"/>
+
+                <ImageButton
+                    android:src="@drawable/ic_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="#00ff0000"/>
+            </LinearLayout>
+                <ListView
+                    android:id="@+id/classlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:background="#EEEEEE"
+                    android:paddingHorizontal="5dp"/>
+
+                //선
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#c4c4c4"/>
+
+                <ImageButton
+                    android:src="@drawable/ic_drag_btn"
+                    android:background="#00ff0000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+    //시간표 부분
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
