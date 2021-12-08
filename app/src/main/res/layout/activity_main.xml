@@ -24,6 +24,7 @@
         android:layout_gravity="start|bottom"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="100dp"
+        app:borderWidth="0dp"
         android:backgroundTint="@color/white"
         android:src="@drawable/school"
         android:tint="@color/C1Red"/>

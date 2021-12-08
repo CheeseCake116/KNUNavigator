@@ -1,5 +1,6 @@
 package com.fantastic4.knumap
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -81,6 +82,14 @@ class FirstFragment : Fragment() {
         val classAdapter = getActivity()?.let { ListViewAdapter(it, ContentList) }
         val classlist = view.findViewById<ListView>(R.id.classlist)
         classlist.adapter = classAdapter
+
+        val classplus = view.findViewById<ImageButton>(R.id.plusBtn)
+        classplus.setOnClickListener{
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("타이틀 입니다.")
+                .setMessage("asd")
+
+        }
 
 
         return view

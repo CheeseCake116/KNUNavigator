@@ -92,15 +92,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        //문제인 부분
-        var directLoc = intent.getStringExtra("location")
-        if(directLoc!=null) searchRoute(directLoc)
+
 
 
         // 권한 설정정보
@@ -242,6 +238,31 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         }
         showMarker(false)
 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //문제인 부분
+
+
+        var directLoc = intent.getStringExtra("location")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("타이틀 입니다.")
+            .setMessage(directLoc)
+
+        var Test : TMapPoint = TMapPoint(35.892376545752455, 128.6131707177347)
+        if(directLoc!=null) {
+            // 출발지 : 현위치, 목적지 : map에서 받아옴
+
+            // 경로 검색 (보행자)
+            TMapData().findPathDataWithType(
+                TMapData.TMapPathType.PEDESTRIAN_PATH, Test, searchMap.get(directLoc),
+                TMapData.FindPathDataListenerCallback { polyLine ->
+                    polyLine.lineColor = Color.BLUE
+                    polyLine.lineWidth = 5f
+                    tmapview.addTMapPath(polyLine)
+                })
+        }
+        else builder.show()
+
         // 학교 바로가기 버튼
         locateBtn = findViewById(R.id.btnSchool)
         locateBtn.setOnClickListener{
@@ -335,10 +356,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     //OnCreate 끝
 
     // 길찾기
+
     fun searchRoute(des:String){
         // 출발지 : 현위치, 목적지 : map에서 받아옴
         var myLoc :TMapPoint = tmapGps.location
-        var destLoc = searchMap.get(des)
+        var destLoc = searchMap.get(destText)
 
         // 경로 검색 (보행자)
         TMapData().findPathDataWithType(
