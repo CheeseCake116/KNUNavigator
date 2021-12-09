@@ -26,6 +26,7 @@ import android.app.Dialog
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.PointF
 import android.location.LocationListener
 import android.view.View.INVISIBLE
 import android.widget.*
@@ -244,8 +245,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         //문제인 부분
 
 
-        var directLoc = intent.getStringExtra("location")
-
 //        val builder = AlertDialog.Builder(this)
 //        builder.setTitle("타이틀 입니다.")
 //            .setMessage(directLoc)
@@ -353,6 +352,11 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         // 어댑터 설정
         tempAdapter = AutoSuggestAdapter(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)
         tempAdapter.setData(searchMapitems)
+
+        var directLoc = intent.getStringExtra("location").toString()
+        if(directLoc != null) {
+            showDialog2(directLoc)
+        }
     }
     //OnCreate 끝
 
@@ -464,6 +468,31 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         dlg.setPositiveButton("확인") { dialog, which ->
             destText = autoEditDestinationDlg.text.toString()
+            Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            searchRoute(destText)
+            destinationText = destText  // destinationText 설정
+            Log.e("destinationText", destinationText)
+        }
+        dlg.setNegativeButton("취소",null)
+
+        var alertDialog: AlertDialog = dlg.create()
+        alertDialog.show()
+        fabCont = 0
+    }
+
+    fun showDialog2(str: String) {
+        var dialogView = View.inflate(this, R.layout.dialog_search, null)
+        var dlg = AlertDialog.Builder(this)
+
+        autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
+        autoEditDestinationDlg.setAdapter(tempAdapter) // 자동완성텍스트뷰에 적용
+
+        autoEditDestinationDlg.setText(str)
+        destText = str
+
+        dlg.setView(dialogView)
+
+        dlg.setPositiveButton("확인") { dialog, which ->
             Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
             searchRoute(destText)
             destinationText = destText  // destinationText 설정
