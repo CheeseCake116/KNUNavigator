@@ -316,6 +316,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 fab1.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
                 fab1.setBackgroundTintList(this.getResources().getColorStateList(R.color.C1Red))
                 fabCont = 1
+                finish()
             }
             else fabCont=0
         }
