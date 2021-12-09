@@ -50,9 +50,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     var myLat : Double = 0.0 // 현재 위치 _ 위도
     val mApiKey : String = "l7xx6a347111bc9842009151e620e7301037"
 
-    var directLoc = ""
-    var directLoc2 = ""
-
     lateinit var tMapPolyLine: TMapPolyLine
 
     lateinit var FB: FloatingButton     // FloatingButton 객체 선언
