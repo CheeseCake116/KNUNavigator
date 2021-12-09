@@ -19,29 +19,28 @@
             android:layout_weight="0"
             android:orientation="horizontal">
 
-            //식당 이름
-
-            <TextView android:id="@+id/restTitle"
+            <TextView
+                android:id="@+id/restTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="6"
                 android:gravity="center_vertical"
-                android:text="복지관 식당"
+                android:text="정보센터식당"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
             //시간
 
-            <TextView
-                android:id="@+id/restTime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:gravity="center_vertical"
-                android:text="11:00 ~ 13:00"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+<!--            <TextView-->
+<!--                android:id="@+id/restTime"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="4"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="11:00 ~ 13:00"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="15dp" />-->
 
             //지도 가는 버튼
 

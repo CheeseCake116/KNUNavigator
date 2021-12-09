@@ -72,7 +72,7 @@ class LobbyActivity : AppCompatActivity() {
 //메인화면 1, 수업과 시간표
 class FirstFragment : Fragment() {
     var ContentList = arrayListOf<ListViewItem>(
-            ListViewItem("1A", "운영관리", "IT대학융복합공학관(415)", "7:00 - 9:00")
+        ListViewItem("1A", "운영관리", "IT대학융복합공학관(415)", "7:00 - 9:00")
     )
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -99,13 +99,17 @@ class FirstFragment : Fragment() {
 
 //메인화면 2, 식단표
 class SecondFragment : Fragment(){
-    var ContentListRest = arrayListOf<Rest_LVItem>(
-            Rest_LVItem("복지관 식당", "11:00 - 13:00", "복지관", "복지관 치즈 돈가스")
-    )
+    var ContentListRest = ArrayList<Rest_LVItem>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        ContentListRest = ArrayList()
+
         val view = inflater.inflate(R.layout.main2, container, false)
-        ContentListRest.add(Rest_LVItem("첨성관 식당", "11:00 - 13:00", "첨성관", "-  김치찌개\n-  흰 쌀밥\n-  김치\n-  시금치 무침\n-  불고기"))
+        ContentListRest.add(Rest_LVItem("정보센터식당", "11:00 - 13:00", "정보센터식당", ""))
+        ContentListRest.add(Rest_LVItem("복지관 교직원식당", "11:00 - 13:00", "복지관 교직원식당", ""))
+        ContentListRest.add(Rest_LVItem("카페테리아 첨성", "11:00 - 13:00", "카페테리아 첨성", ""))
+        ContentListRest.add(Rest_LVItem("공식당(교직원)", "11:00 - 13:00", "공식당(교직원)", ""))
+        ContentListRest.add(Rest_LVItem("공식당(학생)", "11:00 - 13:00", "공식당(학생)", ""))
         val restAdapter = getActivity()?.let{Rest_LVAdapter(it, ContentListRest)}
         val restList = view.findViewById<ListView>(R.id.restList)
         restList.adapter = restAdapter
@@ -131,19 +135,3 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -19,18 +19,19 @@ class Rest_LVAdapter(val context: Context, val ContentList: ArrayList<Rest_LVIte
         var view: View = LayoutInflater.from(parent?.context).inflate(R.layout.main_rest_listitem, null)
 
         val title = view.findViewById<TextView>(R.id.restTitle)
-        val time = view.findViewById<TextView>(R.id.restTime)
+        //val time = view.findViewById<TextView>(R.id.restTime)
         val menu = view.findViewById<TextView>(R.id.restMenu)
 
 
         val content = ContentList[position]
-        time.text = content.time
+        //time.text = content.time
         title.text = content.title
         menu.text = content.menu
 
         val directBtn2 = view.findViewById<ImageButton>(R.id.directBtn2)
         directBtn2.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("location2", title.text)
             context.startActivity(intent)
         })
 

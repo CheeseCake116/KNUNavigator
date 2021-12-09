@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
     var myLat : Double = 0.0 // 현재 위치 _ 위도
     val mApiKey : String = "l7xx6a347111bc9842009151e620e7301037"
 
+    var directLoc = ""
+    var directLoc2 = ""
+
     lateinit var tMapPolyLine: TMapPolyLine
 
     lateinit var FB: FloatingButton     // FloatingButton 객체 선언
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             "생명공학관(207)" to TMapPoint(35.889795, 128.609061), "자연과학대학(209)" to TMapPoint(35.890271, 128.606557), "생물관(217)" to TMapPoint(35.886866, 128.606068),
             "사범대학(301)" to TMapPoint(35.890419, 128.614199), "경상대학(308)" to TMapPoint(35.889098, 128.615822), "공대9호관(406)" to TMapPoint(35.886915, 128.608497),
             "IT대학2호관(416)" to TMapPoint(35.886915, 128.608497), "IT대학융복합공학관(415)" to TMapPoint(35.888065, 128.611215), "수의과대학(420)" to TMapPoint(35.886794, 128.613232),
-            "정보센터식당(116)" to TMapPoint(35.892296, 128.613262), "복지관식당(305)" to TMapPoint(35.889052, 128.614423), "카페테리아첨성(305)" to TMapPoint(35.88898483101483, 128.61447321501393),
+            "정보센터식당(116)" to TMapPoint(35.892296, 128.613262), "복지관 교직원식당(305)" to TMapPoint(35.889052, 128.614423), "카페테리아 첨성(305)" to TMapPoint(35.88898483101483, 128.61447321501393),
             "공식당(교직원)(408)" to TMapPoint(35.888322, 128.609688), "공식당(학생)(408)" to TMapPoint(35.888322, 128.609688))
     }
 
@@ -353,9 +356,20 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tempAdapter = AutoSuggestAdapter(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)
         tempAdapter.setData(searchMapitems)
 
-        var directLoc = intent.getStringExtra("location").toString()
-        if(directLoc != null) {
+        var directLoc = ""
+        var directLoc2 = ""
+
+        directLoc = intent.getStringExtra("location").toString()
+        Log.e("directLoc", directLoc)
+        directLoc2 = intent.getStringExtra("location2").toString()
+        Log.e("directLoc2", directLoc2)
+
+        if(!directLoc.equals(null)) {
             showDialog2(directLoc)
+        }
+
+        if(!directLoc2.equals(null)) {
+            showDialog3(directLoc2)
         }
     }
     //OnCreate 끝
@@ -488,20 +502,44 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         autoEditDestinationDlg.setAdapter(tempAdapter) // 자동완성텍스트뷰에 적용
 
         autoEditDestinationDlg.setText(str)
-        destText = str
 
         dlg.setView(dialogView)
 
         dlg.setPositiveButton("확인") { dialog, which ->
-            Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            destText = autoEditDestinationDlg.text.toString()
+            Log.e("destText", destText)
             searchRoute(destText)
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }
         dlg.setNegativeButton("취소",null)
 
-        var alertDialog: AlertDialog = dlg.create()
-        alertDialog.show()
+        dlg.show()
+        fabCont = 0
+    }
+
+    fun showDialog3(str: String) {
+        var dialogView = View.inflate(this, R.layout.dialog_search, null)
+        var dlg = AlertDialog.Builder(this)
+
+        autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
+        autoEditDestinationDlg.setAdapter(tempAdapter) // 자동완성텍스트뷰에 적용
+
+        autoEditDestinationDlg.setText(str)
+        destText = str
+
+        dlg.setView(dialogView)
+
+        dlg.setPositiveButton("확인") { dialog, which ->
+            //Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            searchRoute(destText)
+            destinationText = destText  // destinationText 설정
+            Log.e("destinationText", destinationText)
+        }
+        dlg.setNegativeButton("취소",null)
+
+        dlg.show()
         fabCont = 0
     }
 
