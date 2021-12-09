@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainAct"
-    >
+    tools:context=".MainActivity">
 
 
     <ScrollView
@@ -37,7 +36,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginVertical="10dp"
-                    android:layout_weight="5"
+                    android:layout_weight="6"
                     android:text="11월 3일, 수요일"
                     android:textSize="22dp"
                     android:textColor="@color/black"/>
