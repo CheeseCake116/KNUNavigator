@@ -354,11 +354,14 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tempAdapter.setData(searchMapitems)
 
         var directLoc = ""
+        var checkNum = 0
 
         directLoc = intent.getStringExtra("location").toString()
         Log.e("directLoc", directLoc)
 
-        if(!directLoc.equals(null)) {
+        checkNum = intent.getIntExtra("num", checkNum)
+
+        if(checkNum != 0) {
             showDialog2(directLoc)
         }
     }
@@ -366,10 +369,17 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     // 길찾기
 
-    fun searchRoute(des:String){
+    fun searchRoute(des:String): Boolean {
         // 출발지 : 현위치, 목적지 : map에서 받아옴
         var myLoc :TMapPoint = tmapGps.location
-        var destLoc = searchMap.get(destText)
+        var destLoc: TMapPoint
+
+        if(searchMap.get(destText) == null) {
+            return false
+        }
+        else {
+            destLoc = searchMap.get(destText)!!
+        }
 
         // 경로 검색 (보행자)
         TMapData().findPathDataWithType(
@@ -379,6 +389,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
                 polyLine.lineWidth = 5f
                 tmapview.addTMapPath(polyLine)
             })
+
+        return true
     }
 
     fun setBalloonView(item: TMapMarkerItem, idx: Int) {
@@ -472,8 +484,13 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         dlg.setPositiveButton("확인") { dialog, which ->
             destText = autoEditDestinationDlg.text.toString()
-            Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
-            searchRoute(destText)
+            var check = searchRoute(destText)
+            if(!check) {
+                Toast.makeText(this, "목적지설정에 실패했습니다", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            }
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }
@@ -496,10 +513,15 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         dlg.setView(dialogView)
 
         dlg.setPositiveButton("확인") { dialog, which ->
-            //Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
             destText = autoEditDestinationDlg.text.toString()
             Log.e("destText", destText)
-            searchRoute(destText)
+            var check = searchRoute(destText)
+            if(!check) {
+                Toast.makeText(this, "목적지설정에 실패했습니다", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
+            }
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
         }

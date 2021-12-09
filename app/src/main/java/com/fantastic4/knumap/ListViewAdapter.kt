@@ -35,6 +35,7 @@ class ListViewAdapter(val context: Context, val ContentList: ArrayList<ListViewI
         directBtn.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("location",location.text)
+            intent.putExtra("num", 1)
             context.startActivity(intent)
 
         })

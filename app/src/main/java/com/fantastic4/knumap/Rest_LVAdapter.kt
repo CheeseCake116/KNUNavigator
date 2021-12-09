@@ -32,6 +32,7 @@ class Rest_LVAdapter(val context: Context, val ContentList: ArrayList<Rest_LVIte
         directBtn2.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("location", title.text)
+            intent.putExtra("num", 1)
             context.startActivity(intent)
         })
 
