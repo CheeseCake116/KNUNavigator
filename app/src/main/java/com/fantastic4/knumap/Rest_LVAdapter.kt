@@ -31,7 +31,7 @@ class Rest_LVAdapter(val context: Context, val ContentList: ArrayList<Rest_LVIte
         val directBtn2 = view.findViewById<ImageButton>(R.id.directBtn2)
         directBtn2.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra("location2", title.text)
+            intent.putExtra("location", title.text)
             context.startActivity(intent)
         })
 
