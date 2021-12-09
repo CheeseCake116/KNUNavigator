@@ -357,20 +357,20 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tempAdapter.setData(searchMapitems)
 
         var directLoc = ""
-        var directLoc2 = ""
-
+//        var directLoc2 = ""
+//
         directLoc = intent.getStringExtra("location").toString()
         Log.e("directLoc", directLoc)
-        directLoc2 = intent.getStringExtra("location2").toString()
-        Log.e("directLoc2", directLoc2)
-
+//        directLoc2 = intent.getStringExtra("location2").toString()
+//        Log.e("directLoc2", directLoc2)
+//
         if(!directLoc.equals(null)) {
             showDialog2(directLoc)
         }
-
-        if(!directLoc2.equals(null)) {
-            showDialog3(directLoc2)
-        }
+//
+//        if(!directLoc2.equals(null)) {
+//            showDialog3(directLoc2)
+//        }
     }
     //OnCreate 끝
 
