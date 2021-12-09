@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
     lateinit var MenuArrayList: ArrayList<ArrayList<String>>
 
+    lateinit var tempAdapter: AutoSuggestAdapter
+
     companion object{
         var isLoc : Boolean = true
         val searchMap = mapOf<String,TMapPoint>("본관(100)" to TMapPoint(35.890512, 128.612028), "대강당(101)" to TMapPoint(35.892801, 128.610700),
@@ -244,24 +246,24 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         var directLoc = intent.getStringExtra("location")
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("타이틀 입니다.")
-            .setMessage(directLoc)
-
-        var Test : TMapPoint = TMapPoint(35.892376545752455, 128.6131707177347)
-        if(directLoc!=null) {
-            // 출발지 : 현위치, 목적지 : map에서 받아옴
-
-            // 경로 검색 (보행자)
-            TMapData().findPathDataWithType(
-                TMapData.TMapPathType.PEDESTRIAN_PATH, Test, searchMap.get(directLoc),
-                TMapData.FindPathDataListenerCallback { polyLine ->
-                    polyLine.lineColor = Color.BLUE
-                    polyLine.lineWidth = 5f
-                    tmapview.addTMapPath(polyLine)
-                })
-        }
-        else builder.show()
+//        val builder = AlertDialog.Builder(this)
+//        builder.setTitle("타이틀 입니다.")
+//            .setMessage(directLoc)
+//
+//        var Test : TMapPoint = TMapPoint(35.892376545752455, 128.6131707177347)
+//        if(directLoc!=null) {
+//            // 출발지 : 현위치, 목적지 : map에서 받아옴
+//
+//            // 경로 검색 (보행자)
+//            TMapData().findPathDataWithType(
+//                TMapData.TMapPathType.PEDESTRIAN_PATH, Test, searchMap.get(directLoc),
+//                TMapData.FindPathDataListenerCallback { polyLine ->
+//                    polyLine.lineColor = Color.BLUE
+//                    polyLine.lineWidth = 5f
+//                    tmapview.addTMapPath(polyLine)
+//                })
+//        }
+//        else builder.show()
 
         // 학교 바로가기 버튼
         locateBtn = findViewById(R.id.btnSchool)
@@ -347,11 +349,10 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
 
         MenuArrayList = ArrayList(ArrayList())
         setRestaurantMenu()
-//        setRestaurantMenu(1, 2)    // 각 식당 메뉴 설정 (정보센터)
-//        setRestaurantMenu(2, 1)     // 복지관 교직원
-//        setRestaurantMenu(3, 1)     // 카페테리아 첨성
-//        setRestaurantMenu(4, 2)     //
-//        setRestaurantMenu(5, 2)
+
+        // 어댑터 설정
+        tempAdapter = AutoSuggestAdapter(this, android.R.layout.simple_dropdown_item_1line, searchMapitems)
+        tempAdapter.setData(searchMapitems)
     }
     //OnCreate 끝
 
@@ -457,8 +458,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         var dlg = AlertDialog.Builder(this)
 
         autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
-        var tempAdapter = ArrayAdapter<String>(this,
-            android.R.layout.simple_dropdown_item_1line, searchMapitems)    // 어댑터 설정
         autoEditDestinationDlg.setAdapter(tempAdapter)                      // 자동완성텍스트뷰에 적용
 
         dlg.setView(dialogView)
