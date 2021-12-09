@@ -354,20 +354,13 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
         tempAdapter.setData(searchMapitems)
 
         var directLoc = ""
-//        var directLoc2 = ""
-//
+
         directLoc = intent.getStringExtra("location").toString()
         Log.e("directLoc", directLoc)
-//        directLoc2 = intent.getStringExtra("location2").toString()
-//        Log.e("directLoc2", directLoc2)
-//
+
         if(!directLoc.equals(null)) {
             showDialog2(directLoc)
         }
-//
-//        if(!directLoc2.equals(null)) {
-//            showDialog3(directLoc2)
-//        }
     }
     //OnCreate 끝
 
@@ -506,30 +499,6 @@ class MainActivity : AppCompatActivity(), TMapGpsManager.onLocationChangedCallba
             //Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
             destText = autoEditDestinationDlg.text.toString()
             Log.e("destText", destText)
-            searchRoute(destText)
-            destinationText = destText  // destinationText 설정
-            Log.e("destinationText", destinationText)
-        }
-        dlg.setNegativeButton("취소",null)
-
-        dlg.show()
-        fabCont = 0
-    }
-
-    fun showDialog3(str: String) {
-        var dialogView = View.inflate(this, R.layout.dialog_search, null)
-        var dlg = AlertDialog.Builder(this)
-
-        autoEditDestinationDlg = dialogView.findViewById(R.id.autoEdit)     // 자동완성텍스트뷰 설정
-        autoEditDestinationDlg.setAdapter(tempAdapter) // 자동완성텍스트뷰에 적용
-
-        autoEditDestinationDlg.setText(str)
-        destText = str
-
-        dlg.setView(dialogView)
-
-        dlg.setPositiveButton("확인") { dialog, which ->
-            //Toast.makeText(this, "목적지 : $destText", Toast.LENGTH_SHORT).show()
             searchRoute(destText)
             destinationText = destText  // destinationText 설정
             Log.e("destinationText", destinationText)
