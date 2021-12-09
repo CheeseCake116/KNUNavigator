@@ -105,11 +105,92 @@ class SecondFragment : Fragment(){
         ContentListRest = ArrayList()
 
         val view = inflater.inflate(R.layout.main2, container, false)
-        ContentListRest.add(Rest_LVItem("정보센터식당", "11:00 - 13:00", "정보센터식당", ""))
-        ContentListRest.add(Rest_LVItem("복지관 교직원식당", "11:00 - 13:00", "복지관 교직원식당", ""))
-        ContentListRest.add(Rest_LVItem("카페테리아 첨성", "11:00 - 13:00", "카페테리아 첨성", ""))
-        ContentListRest.add(Rest_LVItem("공식당(교직원)", "11:00 - 13:00", "공식당(교직원)", ""))
-        ContentListRest.add(Rest_LVItem("공식당(학생)", "11:00 - 13:00", "공식당(학생)", ""))
+        ContentListRest.add(Rest_LVItem("정보센터식당", "11:00 - 13:00", "정보센터식당", "산채돌솥밥★\n" +
+                "흰밥\n" +
+                "어묵무국\n" +
+                "배추김치\n" +
+                "￦ 4,500\n" +
+                "치킨스테이크\n" +
+                "￦ 4,500\n" +
+                "일반돈가스★\n" +
+                "￦ 3,000\n" +
+                "통등심돈가스★\n" +
+                "￦ 3,500\n" +
+                "통등심\n" +
+                "치즈돈가스★\n" +
+                "￦ 3,800\n" +
+                "고구마치즈돈가스★\n" +
+                "￦ 3,800\n" +
+                "왕돈가스★\n" +
+                "￦ 4,500\n" +
+                "베지스테이크\n" +
+                "￦ 4,000\n" +
+                "우동\n" +
+                "우동밥\n" +
+                "￦ 3,200"))
+        ContentListRest.add(Rest_LVItem("복지관 교직원식당", "11:00 - 13:00", "복지관 교직원식당", "흰밥\n" +
+                "닭개장\n" +
+                "치즈콩불★\n" +
+                "두부스테이크★\n" +
+                "상추겉절이\n" +
+                "포기김치\n" +
+                "￦ 5,000"))
+        ContentListRest.add(Rest_LVItem("카페테리아 첨성", "11:00 - 13:00", "카페테리아 첨성", "순살치즈찜닭\n" +
+                "흰밥\n" +
+                "미역국\n" +
+                "배추김치\n" +
+                "￦ 4,500\n" +
+                "스팸후리가께덮밥★\n" +
+                "￦ 3,800\n" +
+                "오삼비빔밥★\n" +
+                "￦ 3,800\n" +
+                "라면\n" +
+                "오후1시-3시반 판매\n" +
+                "￦ 2,500\n" +
+                "일반돈가스★\n" +
+                "￦ 3,000\n" +
+                "통등심돈가스★\n" +
+                "￦ 3,500\n" +
+                "치즈돈가스★\n" +
+                "￦ 3,800\n" +
+                "고구마돈가스★\n" +
+                "￦ 3,800\n" +
+                "복돈이★\n" +
+                "￦ 4,500\n" +
+                "치즈복돈이★\n" +
+                "￦ 4,500"))
+        ContentListRest.add(Rest_LVItem("공식당(교직원)", "11:00 - 13:00", "공식당(교직원)", "정식\n" +
+                "흑미밥/흰밥\n" +
+                "시금치장국\n" +
+                "홍초불닭\n" +
+                "프렌치후라이드/케찹\n" +
+                "멕시칸샐러드★\n" +
+                "직접담근김치\n" +
+                "온국수\n" +
+                "커피"))
+        ContentListRest.add(Rest_LVItem("공식당(학생)", "11:00 - 13:00", "공식당(학생)", "특식\n" +
+                "육회비빔밥\n" +
+                "5,000\n" +
+                "수제등심돈가스+스프★\n" +
+                "4,000\n" +
+                "치킨마요\n" +
+                "4,000\n" +
+                "불닭마요\n" +
+                "4,000\n" +
+                "참치덮밥\n" +
+                "4,000\n" +
+                "양푼이비빔밥+된장찌개\n" +
+                "4,000\n" +
+                "특최루탄라면+주먹밥★\n" +
+                "4,000\n" +
+                "뚝배기알밥\n" +
+                "4,000\n" +
+                "치즈뚝배기알밥\n" +
+                "4,500\n" +
+                "양푼이돈육양념찜★\n" +
+                "5,000\n" +
+                "삼겹살김치전골★(2인)\n" +
+                "10,000"))
         val restAdapter = getActivity()?.let{Rest_LVAdapter(it, ContentListRest)}
         val restList = view.findViewById<ListView>(R.id.restList)
         restList.adapter = restAdapter
